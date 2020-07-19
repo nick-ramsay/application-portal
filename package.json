@@ -24,6 +24,7 @@
   "homepage": "https://github.com/nick-ramsay/application-portal#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "if-env": "^1.0.4",
     "mongoose": "^5.9.25",
     "nodemon": "^2.0.4"
   }
