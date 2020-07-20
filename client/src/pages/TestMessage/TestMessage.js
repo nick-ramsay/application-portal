@@ -13,7 +13,7 @@ class TestMessage extends Component {
             <div>
                 <div className="container">
                     <div className="col-md-12 mt-2">
-                        <button className="btn btn-sm" onClick={this.homeBtn}><strong>&#8592;</strong></button>
+                        <button className="btn btn-sm" onClick={this.homeBtn}><strong>&#129092; Back</strong></button>
                         <h3 className="text-center mb-5"><strong>Submit a Test Message</strong></h3>
                         <form className="login-form p-3">
                             <div className="form-group">
