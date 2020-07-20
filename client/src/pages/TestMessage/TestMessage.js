@@ -4,12 +4,16 @@ import GithubLogo from "../../images/GitHub_Logo.png";
 
 class TestMessage extends Component {
 
+    homeBtn = () => {
+        window.location.href="/";
+    }
+
     render() {
         return (
             <div>
                 <div className="container">
                     <div className="col-md-12 mt-2">
-                        <a href="/">&#8592;</a>
+                        <button className="btn btn-sm" onClick={this.homeBtn}><strong>&#8592;</strong></button>
                         <h3 className="text-center mb-5"><strong>Submit a Test Message</strong></h3>
                         <form className="login-form p-3">
                             <div className="form-group">
