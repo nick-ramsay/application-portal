@@ -3,9 +3,9 @@ import axios from "axios";
 const apiURL = process.env.NODE_ENV === 'production'? '' : '//localhost:3001'
 
 export default {
-    sendDummyEmail: function(messageInfo) {
-        console.log("Called send dummy email API...");
-        return axios({method:"post", url: apiURL + "/api/application-portal/send-dummy-email", data: [messageInfo]});
+    sendTestEmail: function(messageInfo) {
+        console.log("Called send test email API...");
+        return axios({method:"post", url: apiURL + "/api/application-portal/send-test-email", data: [messageInfo]});
     }
     /*
     getAccountData: function (contextID) {

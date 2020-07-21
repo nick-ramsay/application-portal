@@ -17,26 +17,26 @@ const transporter = nodemailer.createTransport({
   
 
 module.exports = {
-    sendDummyEmail: function (req, res) {
+    sendTestEmail: function (req, res) {
 
-     let mailOptions = {
-        from: 'applications.nickramsay@gmail.com',
-        to: 'NickRamsay1989@gmail.com',
-        subject: 'Invoices due',
-        text: 'Dudes, we really need your money.'
-      };
-
-     transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-
-      return console.log("Called send dummy e-mail controller...");
-
-    }
+        let mailOptions = {
+           from: 'applications.nickramsay@gmail.com',
+           to: req.body[0].recipientEmail,
+           subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName,
+           text: req.body[0].message
+         };
+   
+        transporter.sendMail(mailOptions, function(error, info){
+           if (error) {
+             console.log(error);
+           } else {
+             console.log('Email sent: ' + info.response);
+           }
+         });
+   
+         return console.log("Called send dummy e-mail controller...");
+   
+       }
     /*
     //sendTwilioSMS: function(req,res) {
     console.log(req.body);
