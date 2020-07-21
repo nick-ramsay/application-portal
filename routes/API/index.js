@@ -1,7 +1,7 @@
 const router = require("express").Router();
-//const atlTrackRoutes = require("./applicationPortal");
+const applicationPortalRoutes = require("./applicationPortal");
 
-// Book routes
-//router.use("/atl-track", atlTrackRoutes);
+// application-portal routes
+router.use("/application-portal", applicationPortalRoutes);
 
 module.exports = router;

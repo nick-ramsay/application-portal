@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import "./style.css";
 import GithubLogo from "../../images/GitHub_Logo.png";
+import API from "../../utils/API";
 
 class TestMessage extends Component {
 
+
     homeBtn = () => {
         window.location.href="/";
+    }
+
+    sendDummyEmail = () => {
+        alert("Clicked save dummy email...");
+        API.sendDummyEmail().then(console.log("Email success..."))
     }
 
     render() {
@@ -28,7 +35,8 @@ class TestMessage extends Component {
                                 <label for="testMessage">Message</label>
                                 <textarea className="form-control" id="testMessage" />
                             </div>
-                            <button type="button" className="btn btn-sm">Submit</button>
+                            <button type="button" className="btn btn-sm mr-2">Submit</button>
+                            <button type="button" className="btn btn-sm" name="sendDummyEmail" id="sendDummyEmail" onClick={this.sendDummyEmail}>Dummy Test E-Mail</button>
                         </form>
                     </div>
                 </div>
