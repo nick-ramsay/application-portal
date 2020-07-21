@@ -1,44 +1,44 @@
 
 //const db = require("../models");
 require('dotenv').config();
+const nodemailer = require("nodemailer");
 const keys = require("../keys");
 
-const gmail_user_id = keys.gmail_credentials.gmail_user_id;
-const gmail_password = keys.gmail_credentials.gmail_password;
-
-const nodemailer = require("nodemailer");
+const gmailUserId = keys.gmail_credentials.gmailUserId;
+const gmailPassword = keys.gmail_credentials.gmailPassword;
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: gmail_users_id,
-        pass: gmail_password // naturally, replace both with your real credentials or an application-specific password
+      user: gmailUserId,
+      pass: gmailPassword // naturally, replace both with your real credentials or an application-specific password
     }
-});
-
-console.log(gmail_user_id);
-console.log(gmail_password);
-console.log("Testing controller...");
+  });
+  
 
 module.exports = {
     sendDummyEmail: function (req, res) {
-        console.log("Called send dummy e-mail controller...");
-        let mailOptions = {
-            from: 'applications.nickramsay@gmail.com',
-            to: 'NickRamsay1989@gmail.com',
-            subject: 'Application Portal Test Email',
-            text: 'This is a test of the application portal e-mail functionality...'
-        };
 
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+     let mailOptions = {
+        from: 'applications.nickramsay@gmail.com',
+        to: 'NickRamsay1989@gmail.com',
+        subject: 'Invoices due',
+        text: 'Dudes, we really need your money.'
+      };
+
+     transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+
+      return console.log("Called send dummy e-mail controller...");
+
     }
-    /*sendTwilioSMS: function(req,res) {
+    /*
+    //sendTwilioSMS: function(req,res) {
     console.log(req.body);
     client.messages
       .create({body: req.body.text, from: '+61488839145', to: '+61' + req.body.customerPhone})

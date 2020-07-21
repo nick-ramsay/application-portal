@@ -12,7 +12,7 @@ class TestMessage extends Component {
 
     sendDummyEmail = () => {
         alert("Clicked save dummy email...");
-        API.sendDummyEmail().then(console.log("Email success..."))
+        API.sendDummyEmail("Sending a test message...").then(res=>console.log(res));
     }
 
     render() {

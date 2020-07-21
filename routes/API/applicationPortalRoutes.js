@@ -4,3 +4,5 @@ const applicationPortalController = require("../../controllers/applicationPortal
 router
   .route("/send-dummy-email")
   .post(applicationPortalController.sendDummyEmail);
+
+module.exports = router;
