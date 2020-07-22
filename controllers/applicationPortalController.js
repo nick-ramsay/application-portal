@@ -2,41 +2,76 @@
 //const db = require("../models");
 require('dotenv').config();
 const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 const keys = require("../keys");
 
 const gmailUserId = keys.gmail_credentials.gmailUserId;
 const gmailPassword = keys.gmail_credentials.gmailPassword;
+const gmailClientId = keys.gmail_credentials.gmailClientId;
+const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
+const gmailRefreshToken = keys.gmail_credentials.gmailRefreshToken;
 
-const transporter = nodemailer.createTransport({
+const oauth2Client = new OAuth2(
+    gmailClientId, // ClientID
+    gmailClientSecret, // Client Secret
+    "https://developers.google.com/oauthplayground" // Redirect URL
+);
+
+oauth2Client.setCredentials({
+    refresh_token: gmailRefreshToken
+});
+const accessToken = oauth2Client.getAccessToken()
+
+const smtpTransport = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        type: "OAuth2",
+        user: "applications.nickramsay@gmail.com",
+        clientId: gmailClientId,
+        clientSecret: gmailClientSecret,
+        refreshToken: gmailRefreshToken,
+        accessToken: accessToken
+    }
+});
+
+
+
+/*const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: gmailUserId,
-      pass: gmailPassword // naturally, replace both with your real credentials or an application-specific password
+        user: gmailUserId,
+        pass: gmailPassword // naturally, replace both with your real credentials or an application-specific password
+        
     }
-  });
-  
+});*/
+
 
 module.exports = {
     sendTestEmail: function (req, res) {
 
         let mailOptions = {
-           from: 'applications.nickramsay@gmail.com',
-           to: req.body[0].recipientEmail,
-           subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName,
-           text: req.body[0].message
-         };
-   
-        transporter.sendMail(mailOptions, function(error, info){
-           if (error) {
-             console.log(error);
-           } else {
-             console.log('Email sent: ' + info.response);
-           }
-         });
-   
-         return console.log("Called send dummy e-mail controller...");
-   
-       }
+            from: 'applications.nickramsay@gmail.com',
+            to: req.body[0].recipientEmail,
+            subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName,
+            text: req.body[0].message
+        };
+
+        /*transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });*/
+        smtpTransport.sendMail(mailOptions, (error, response) => {
+            error ? console.log(error) : console.log(response);
+            smtpTransport.close();
+       });
+
+        return console.log("Called send test e-mail controller...");
+
+    }
     /*
     //sendTwilioSMS: function(req,res) {
     console.log(req.body);
