@@ -7,7 +7,7 @@ const OAuth2 = google.auth.OAuth2;
 const keys = require("../keys");
 
 const gmailUserId = keys.gmail_credentials.gmailUserId;
-const gmailPassword = keys.gmail_credentials.gmailPassword;
+//const gmailPassword = keys.gmail_credentials.gmailPassword;
 const gmailClientId = keys.gmail_credentials.gmailClientId;
 const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
 const gmailRefreshToken = keys.gmail_credentials.gmailRefreshToken;
@@ -19,7 +19,7 @@ const oauth2Client = new OAuth2(
 );
 
 oauth2Client.setCredentials({
-    refresh_token: gmailRefreshToken.toString()
+    refresh_token: gmailRefreshToken
 });
 
 const accessToken = oauth2Client.getAccessToken();
@@ -34,9 +34,9 @@ const smtpTransport = nodemailer.createTransport({
         //user: "applications.nickramsay@gmail.com",
         user: gmailUserId,
         //pass: gmailPassword,
-        clientId: gmailClientId.toString(),
-        clientSecret: gmailClientSecret.toString(),
-        refreshToken: gmailRefreshToken.toString(),
+        clientId: gmailClientId,
+        clientSecret: gmailClientSecret,
+        refreshToken: gmailRefreshToken,
         accessToken: accessToken
     }
 });
