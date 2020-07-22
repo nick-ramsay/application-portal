@@ -25,14 +25,14 @@ oauth2Client.setCredentials({
 const accessToken = oauth2Client.getAccessToken();
 
 const smtpTransport = nodemailer.createTransport({
-    service: "gmail",
-    //host: 'smtp.gmail.com',
-    //port: 465,
-    //secure: true,
+    //service: "gmail",
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
         type: "OAuth2",
-        //user: "applications.nickramsay@gmail.com",
-        user: gmailUserId,
+        user: "applications.nickramsay@gmail.com",
+        //user: gmailUserId,
         //pass: gmailPassword,
         clientId: gmailClientId,
         clientSecret: gmailClientSecret,
@@ -54,8 +54,6 @@ const smtpTransport = nodemailer.createTransport({
 
 module.exports = {
     sendTestEmail: function (req, res) {
-
-        console.log(accessToken);
         
         let mailOptions = {
             from: 'applications.nickramsay@gmail.com',
