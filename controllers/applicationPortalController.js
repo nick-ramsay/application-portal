@@ -19,22 +19,27 @@ const oauth2Client = new OAuth2(
 );
 
 oauth2Client.setCredentials({
-    refresh_token: gmailRefreshToken
+    refresh_token: gmailRefreshToken.toString()
 });
-const accessToken = oauth2Client.getAccessToken()
+
+const accessToken = oauth2Client.getAccessToken();
 
 const smtpTransport = nodemailer.createTransport({
     service: "gmail",
+    //host: 'smtp.gmail.com',
+    //port: 465,
+    //secure: true,
     auth: {
         type: "OAuth2",
-        user: "applications.nickramsay@gmail.com",
-        clientId: gmailClientId,
-        clientSecret: gmailClientSecret,
-        refreshToken: gmailRefreshToken,
+        //user: "applications.nickramsay@gmail.com",
+        user: gmailUserId,
+        //pass: gmailPassword,
+        clientId: gmailClientId.toString(),
+        clientSecret: gmailClientSecret.toString(),
+        refreshToken: gmailRefreshToken.toString(),
         accessToken: accessToken
     }
 });
-
 
 
 /*const transporter = nodemailer.createTransport({
@@ -50,6 +55,8 @@ const smtpTransport = nodemailer.createTransport({
 module.exports = {
     sendTestEmail: function (req, res) {
 
+        console.log(accessToken);
+        
         let mailOptions = {
             from: 'applications.nickramsay@gmail.com',
             to: req.body[0].recipientEmail,
@@ -64,10 +71,11 @@ module.exports = {
                 console.log('Email sent: ' + info.response);
             }
         });*/
+
         smtpTransport.sendMail(mailOptions, (error, response) => {
             error ? console.log(error) : console.log(response);
             smtpTransport.close();
-       });
+        });
 
         return console.log("Called send test e-mail controller...");
 
