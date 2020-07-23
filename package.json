@@ -1,6 +1,9 @@
 {
   "name": "application-portal",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.16.0"
+  },
   "description": "Application for managing functions, including messages, from various outside applications",
   "main": "server.js",
   "scripts": {
