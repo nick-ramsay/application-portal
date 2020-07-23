@@ -14,7 +14,7 @@ const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
 const gmailRefreshToken = keys.gmail_credentials.gmailRefreshToken;
 const sendGridAPIKey = keys.gmail_credentials.sendGridAPIKey;
 
-console.log(sendGridAPIKey);
+console.log("Testing Config Var. Saves: " + sendGridAPIKey);
 
 sgMail.setApiKey(sendGridAPIKey);
 
