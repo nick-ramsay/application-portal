@@ -1,6 +1,7 @@
 
 //const db = require("../models");
 require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -11,6 +12,9 @@ const gmailUserId = keys.gmail_credentials.gmailUserId;
 const gmailClientId = keys.gmail_credentials.gmailClientId;
 const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
 const gmailRefreshToken = keys.gmail_credentials.gmailRefreshToken;
+const sendGridAPIKey = keys.gmail_credentials.sendGridAPIKey;
+
+sgMail.setApiKey(sendGridAPIKey);
 
 const oauth2Client = new OAuth2(
     gmailClientId, // ClientID
@@ -54,6 +58,18 @@ const smtpTransport = nodemailer.createTransport({
 
 module.exports = {
     sendTestEmail: function (req, res) {
+        //SENDGRID LOGIC BELOW...
+
+        let msg = {
+            to:  req.body[0].recipientEmail,
+            from: 'applications.nickramsay@gmail.com',
+            subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName + ' via SendGrid',
+            text: req.body[0].message,
+            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+          };
+          sgMail.send(msg);
+
+        //GMAIL CREDENTIALS BELOW...
         
         let mailOptions = {
             from: 'applications.nickramsay@gmail.com',
@@ -70,10 +86,10 @@ module.exports = {
             }
         });*/
 
-        smtpTransport.sendMail(mailOptions, (error, response) => {
+        /*smtpTransport.sendMail(mailOptions, (error, response) => {
             error ? console.log(error) : console.log(response);
             smtpTransport.close();
-        });
+        });*/
 
         return console.log("Called send test e-mail controller...");
 
