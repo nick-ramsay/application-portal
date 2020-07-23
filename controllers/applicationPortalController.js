@@ -86,10 +86,10 @@ module.exports = {
             }
         });*/
 
-        /*smtpTransport.sendMail(mailOptions, (error, response) => {
+        smtpTransport.sendMail(mailOptions, (error, response) => {
             error ? console.log(error) : console.log(response);
             smtpTransport.close();
-        });*/
+        });
 
         return console.log("Called send test e-mail controller...");
 
