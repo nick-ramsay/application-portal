@@ -14,6 +14,8 @@ const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
 const gmailRefreshToken = keys.gmail_credentials.gmailRefreshToken;
 const sendGridAPIKey = keys.gmail_credentials.sendGridAPIKey;
 
+console.log(sendGridAPIKey);
+
 sgMail.setApiKey(sendGridAPIKey);
 
 const oauth2Client = new OAuth2(
