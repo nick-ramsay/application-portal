@@ -5,15 +5,15 @@ const apiURL = process.env.NODE_ENV === 'production'? '' : '//localhost:3001'
 export default {
     sendTestEmail: function(messageInfo) {
         console.log("Called send test email API...");
-        return axios({method:"post", url: apiURL + "/api/application-portal/send-test-email", data: [messageInfo]});
+        return axios({method:"post", url: apiURL + "/api/application-portal/send-test-email", data: messageInfo});
+    },
+    createAccount: function (newAccountInfo) {
+        return axios({method:"post", url: apiURL + "/api/application-portal/create-account", data: newAccountInfo})
     }
     /*
     getAccountData: function (contextID) {
         console.log("Called get customers API");
         return axios({method:"post", url: apiURL + "/api/crafter/get-account-data", data: contextID});
-    },
-    createAccount: function (newAccountInfo) {
-        return axios({method:"post", url: apiURL + "/api/crafter/create-account", data: newAccountInfo})
     },
     editAccount: function (editedAccountInfo) {
         return axios({method:"post", url: apiURL + "/api/crafter/edit-account", data: editedAccountInfo})

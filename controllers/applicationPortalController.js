@@ -1,13 +1,15 @@
+const db = require("../models");
 
-//const db = require("../models");
 require('dotenv').config();
+
 const sgMail = require('@sendgrid/mail');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
+
 const keys = require("../keys");
 
-const gmailUserId = keys.gmail_credentials.gmailUserId;
+//const gmailUserId = keys.gmail_credentials.gmailUserId;
 //const gmailPassword = keys.gmail_credentials.gmailPassword;
 const gmailClientId = keys.gmail_credentials.gmailClientId;
 const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
@@ -29,7 +31,6 @@ oauth2Client.setCredentials({
 const accessToken = oauth2Client.getAccessToken();
 
 const smtpTransport = nodemailer.createTransport({
-    //service: "gmail",
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
@@ -44,16 +45,6 @@ const smtpTransport = nodemailer.createTransport({
         accessToken: accessToken
     }
 });
-
-
-/*const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: gmailUserId,
-        pass: gmailPassword // naturally, replace both with your real credentials or an application-specific password
-        
-    }
-});*/
 
 
 module.exports = {
@@ -79,19 +70,18 @@ module.exports = {
             text: req.body[0].message
         };
 
-        /*transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });*/
-
         smtpTransport.sendMail(mailOptions, (error, response) => {
             error ? console.log(error) : console.log(response);
             smtpTransport.close();
         });
 
+    },
+    createAccount: function (req, res) {
+        db.Accounts
+            .create(req.body)
+            .then(dbModel => res.json(dbModel))
+            .then(console.log(req.body))
+            .catch(err => res.status(422).json(err));
     }
     /*
     //sendTwilioSMS: function(req,res) {
