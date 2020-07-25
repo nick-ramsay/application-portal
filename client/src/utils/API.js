@@ -8,6 +8,8 @@ export default {
         return axios({method:"post", url: apiURL + "/api/application-portal/send-test-email", data: messageInfo});
     },
     createAccount: function (newAccountInfo) {
+        console.log("Called create accounts API...");
+        console.log(newAccountInfo);
         return axios({method:"post", url: apiURL + "/api/application-portal/create-account", data: newAccountInfo})
     }
     /*

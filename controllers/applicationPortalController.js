@@ -77,6 +77,7 @@ module.exports = {
 
     },
     createAccount: function (req, res) {
+        console.log("Called Create Account controller");
         db.Accounts
             .create(req.body)
             .then(dbModel => res.json(dbModel))
