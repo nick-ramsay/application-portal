@@ -3,6 +3,22 @@ body {
   font-family: 'Didact Gothic', sans-serif;
 }
 
+form {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 3px 3px 10px grey;
+}
+
+a {
+  color: black;
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+  color: goldenrod;
+}
+
 .btn, .btn-sm {
   color: black;
   background-color: inherit;
