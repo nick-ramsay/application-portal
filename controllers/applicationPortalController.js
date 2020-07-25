@@ -50,6 +50,7 @@ const smtpTransport = nodemailer.createTransport({
 module.exports = {
     sendTestEmail: function (req, res) {
         console.log("Called send test e-mail controller...");
+        console.log(req.body[0]);
         //SENDGRID LOGIC BELOW...
 
         let msg = {
