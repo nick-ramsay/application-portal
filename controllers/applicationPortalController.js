@@ -84,6 +84,14 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .then(console.log(req.body))
             .catch(err => res.status(422).json(err));
+    },
+    checkExistingAccountEmails: function (req, res) {
+        console.log("Called check accounts controller...");
+        console.log(req.body[0]);
+        db.Accounts
+            .find({email: req.body[0]}, {email:1}).sort({})
+            .then(dbModel => res.json(dbModel[0]))
+            .catch(err => res.status(422).json(err));
     }
     /*
     //sendTwilioSMS: function(req,res) {

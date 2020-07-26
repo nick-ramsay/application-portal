@@ -11,6 +11,11 @@ export default {
         console.log("Called create accounts API...");
         console.log(newAccountInfo);
         return axios({method:"post", url: apiURL + "/api/application-portal/create-account", data: newAccountInfo})
+    },
+    checkExistingAccountEmails: function (email) {
+        console.log(email);
+        console.log("Called get check emails API");
+        return axios({method:"post", url: apiURL + "/api/application-portal/check-existing-account-emails", data: [email]});
     }
     /*
     getAccountData: function (contextID) {

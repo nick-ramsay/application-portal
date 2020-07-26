@@ -12,7 +12,6 @@ const CreateAccount = () => {
             setValue(e.target.value);
         }
 
-        console.log(value);
         return [value, handleChange];
     } //This dynamicaly sets react hooks as respective form inputs are updated...
 
@@ -41,15 +40,25 @@ const CreateAccount = () => {
             passwordResetToken: null
         }
 
-        if (firstname !== "" && lastname !== "" && email !== "" && password !=="" && confirmPassword !== "") {
+        if (firstname !== "" && lastname !== "" && email !== "" && password !== "" && confirmPassword !== "" && password === confirmPassword) {
             console.log(currentAccountInfo);
             setSubmissionMessage(submissionMessage => "");
-            API.createAccount(currentAccountInfo).then(res => console.log(res));
-        } else {
+            API.checkExistingAccountEmails(currentAccountInfo.email)
+                .then(res => {
+                    if (res.data === "") {
+                        API.createAccount(currentAccountInfo).then(res => console.log(res));
+                        window.location.href = "/login";
+                    } else {
+                        setSubmissionMessage(submissionMessage => ("Sorry... an account already exists for this email."));
+                    }
+                }
+                );
+        } else if ( password !== confirmPassword) {
+            setSubmissionMessage(submissionMessage => ("Password and confirm password fields don't match..."));
+        } 
+        else {
             setSubmissionMessage(submissionMessage => ("Not enough info entered..."));
         }
-
-        //window.location.href = "/login"
     }
 
 
@@ -63,28 +72,28 @@ const CreateAccount = () => {
                         <h6 className="text-center"><strong>Create Account</strong></h6>
                         <div className="row mb-3">
                             <div className="col">
-                                <label for="createAccountFirstName">First Name</label>
+                                <label htmlFor="createAccountFirstName">First Name</label>
                                 <input type="text" className="form-control" id="createAccountFirstName" name="createAccountFirstName" onChange={setFirstname} aria-describedby="createAccountFirstnameHelp" />
                             </div>
                             <div className="col">
-                                <label for="createAccountFirstName">Last Name</label>
+                                <label htmlFor="createAccountFirstName">Last Name</label>
                                 <input type="text" className="form-control" id="createAccountLastName" name="createAccountLastName" onChange={setLastname} aria-describedby="createAccountLastnameHelp" />
                             </div>
                         </div>
                         <div className="form-group">
-                            <label for="createAccountEmail">Email address</label>
+                            <label htmlFor="createAccountEmail">Email address</label>
                             <input type="email" className="form-control" id="createAccountEmail" name="createAccountEmail" onChange={setEmail} aria-describedby="createAccountEmailHelp" />
                         </div>
                         <div className="form-group">
-                            <label for="createAccountPhone">Phone Number</label>
+                            <label htmlFor="createAccountPhone">Phone Number</label>
                             <input type="text" className="form-control" id="createAccountPhone" name="createAccountPhone" onChange={setPhone} aria-describedby="createAccountPhoneHelp" />
                         </div>
                         <div className="form-group">
-                            <label for="createAccountPassword">Password</label>
+                            <label htmlFor="createAccountPassword">Password</label>
                             <input type="password" className="form-control" id="createAccountPassword" onChange={setPassword} name="createAccountPassword" />
                         </div>
                         <div className="form-group">
-                            <label for="createAccountPasswordConfirm">Confirm Password</label>
+                            <label htmlFor="createAccountPasswordConfirm">Confirm Password</label>
                             <input type="password" className="form-control" id="createAccountPasswordConfirm" name="createAccountPasswordConfirm" onChange={setConfirmPassword} />
                         </div>
                         <button type="button" className="btn btn-sm" onClick={createNewAccount}>Submit</button>

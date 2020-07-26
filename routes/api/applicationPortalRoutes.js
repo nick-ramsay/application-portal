@@ -9,4 +9,8 @@ router
   .route("/create-account")
   .post(applicationPortalController.createAccount);
 
+router
+  .route("/check-existing-account-emails")
+  .post(applicationPortalController.checkExistingAccountEmails);
+
 module.exports = router;
