@@ -105,15 +105,31 @@ module.exports = {
         console.log("Called check email and token controller...");
         console.log(req.body);
         db.Accounts
-            .find({ email: req.body.email, passwordResetToken: req.body.resetToken }, {email:1})
+            .find({ email: req.body.email, passwordResetToken: req.body.resetToken }, { email: 1 })
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
     },
-    resetPassword: function (req,res) {
+    resetPassword: function (req, res) {
         console.log("Called reset password controller...");
         console.log(req.body);
         db.Accounts
             .updateOne({ email: req.body.email }, { password: req.body.newPassword, passwordResetToken: null })
+            .then(dbModel => res.json(dbModel[0]))
+            .catch(err => res.status(422).json(err));
+    },
+    login: function (req, res) {
+        console.log("Called reset login controller...");
+        console.log(req.body);
+        db.Accounts
+            .find({ email: req.body.email, password: req.body.password }, {_id:1})
+            .then(dbModel => res.json(dbModel[0]))
+            .catch(err => res.status(422).json(err));
+    },
+    setSessionAccessToken: function (req, res) {
+        console.log("Called session token set controller...");
+        console.log(req.body);
+        db.Accounts
+            .updateOne({ _id: req.body.id }, { sessionAccessToken: req.body.sessionAccessToken })
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
     }

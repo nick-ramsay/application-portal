@@ -25,4 +25,12 @@ router
   .route("/reset-password")
   .post(applicationPortalController.resetPassword);
 
+router
+  .route("/reset-login")
+  .post(applicationPortalController.login);
+
+router
+  .route("/set-session-access-token")
+  .post(applicationPortalController.setSessionAccessToken);
+
 module.exports = router;
