@@ -17,4 +17,12 @@ router
   .route("/reset-password-request")
   .post(applicationPortalController.resetPasswordRequest);
 
+router
+  .route("/check-email-and-reset-token")
+  .post(applicationPortalController.checkEmailAndToken);
+
+router
+  .route("/reset-password")
+  .post(applicationPortalController.resetPassword);
+
 module.exports = router;

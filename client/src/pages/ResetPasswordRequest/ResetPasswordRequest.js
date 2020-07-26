@@ -38,43 +38,41 @@ const ResetPasswordRequest = () => {
                             .then(
                                 res => console.log(res),
                                 API.sendTestEmail({ senderName: "Communication Portal", recipientEmail: email, subject: "Your Password Reset Code", message: "Your password reset code is: " + generatedResetToken })
-                                    .then(res => console.log(res))
+                                    .then(res => console.log(res), window.location.href = "/reset-password")
                             );
-        } else {
-            setSubmissionMessage(submissionMessage => ("Sorry... no account exists for this email address"));
-        }
-    }
+                    } else {
+                        setSubmissionMessage(submissionMessage => ("Sorry... no account exists for this email address"));
+                    }
+                }
                 );
 
-            
-        } else {
-    setSubmissionMessage(submissionMessage => "Please enter an email address")
-}
 
-        //window.location.href = "/reset-password";
+        } else {
+            setSubmissionMessage(submissionMessage => "Please enter an email address")
+        }
     }
 
-return (
-    <div>
-        <div className="container">
-            <div className="col-md-12 mt-2">
-                <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
-                <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
-                <form className="p-3">
-                    <h6 className="text-center"><strong>Enter Your Email Below to Receive Password Reset Code</strong></h6>
-                    <div className="form-group">
-                        <label htmlFor="resetEmailAddress">Email address</label>
-                        <input type="email" className="form-control" id="resetEmailAddress" name="resetEmailAddress" onChange={setEmail} aria-describedby="emailHelp" />
-                    </div>
-                    <button type="button" className="btn btn-sm" onClick={requestPasswordResetCode}>Submit</button>
-                    <div className="form-group text-center">
-                        <p className="submission-message" name="submissionMessage">{submissionMessage}</p>
-                    </div>
-                </form>
+    return (
+        <div>
+            <div className="container">
+                <div className="col-md-12 mt-2">
+                    <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
+                    <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
+                    <form className="p-3">
+                        <h6 className="text-center"><strong>Enter Your Email Below to Receive Password Reset Code</strong></h6>
+                        <div className="form-group">
+                            <label htmlFor="resetEmailAddress">Email address</label>
+                            <input type="email" className="form-control" id="resetEmailAddress" name="resetEmailAddress" onChange={setEmail} aria-describedby="emailHelp" />
+                        </div>
+                        <button type="button" className="btn btn-sm" onClick={requestPasswordResetCode}>Submit</button>
+                        <div className="form-group text-center">
+                            <p className="submission-message" name="submissionMessage">{submissionMessage}</p>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-)
+    )
 }
 
 export default ResetPasswordRequest;

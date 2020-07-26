@@ -1,49 +1,83 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from 'react';
+import { sha256 } from 'js-sha256';
 import "./style.css";
+import API from "../../utils/API";
 
-class ResetPassword extends Component {
+const ResetPassword = () => {
 
-    goBack = () => {
+    const useInput = (initialValue) => {
+        const [value, setValue] = useState(initialValue);
+
+        function handleChange(e) {
+            setValue(e.target.value);
+        }
+
+        return [value, handleChange];
+    } //This dynamicaly sets react hooks as respective form inputs are updated...
+
+    var [passwordResetCode, setPasswordResetCode] = useInput("");
+    var [email, setEmail] = useInput("");
+    var [newPassword, setNewPassword] = useInput("");
+    var [newPasswordConfirm, setNewPasswordConfirm] = useInput("");
+    var [submissionMessage, setSubmissionMessage] = useState("");
+
+    const goBack = () => {
         window.history.back();
     }
 
-    ResetPassword = () => {
-        window.location.href = "/login";
+    const resetPassword = () => {
+        console.log("Clicked reset password button...")
+        if (passwordResetCode !== "" && email !== "" && newPassword !=="" && newPasswordConfirm !== "" && newPassword === newPasswordConfirm) {
+            API.checkEmailAndResetToken(email, passwordResetCode).then(
+                res => {console.log(res);
+                if (res.data !== "") {
+                    let encryptedPassword = sha256(newPassword);
+                    API.resetPassword(email, encryptedPassword).then(res => console.log(res), window.location.href="/login");
+                } else {
+                    setSubmissionMessage(submissionMessage => "Hmm... reset code doesn't appear correct for email. Please make sure you've properly entered the email and reset code.")
+                }
+            });
+        } else if (newPassword !== newPasswordConfirm) {
+            setSubmissionMessage(submissionMessage => "Password and confirm password don't match")
+        } else {
+            setSubmissionMessage(submissionMessage => "Please complete all fields")
+        }
     }
-
-    render() {
+                    
         return (
             <div>
                 <div className="container">
                     <div className="col-md-12 mt-2">
-                        <button className="btn btn-sm" onClick={this.goBack}><strong>&lt; Back</strong></button>
+                        <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
                         <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
                         <form className="p-3">
                             <h6 className="text-center"><strong>Reset Your Password</strong></h6>
                             <p className="text-center">Check your e-mail for your one-time reset code. Enter your reset code, email, and new password below.</p>
                             <div className="form-group">
-                                <label for="passwordResetCode">Reset Code</label>
-                                <input type="password" className="form-control" id="passwordResetCode" aria-describedby="passwordResetCodeHelp" />
+                                <label htmlFor="passwordResetCode">Reset Code</label>
+                                <input type="password" className="form-control" id="passwordResetCode" name="passwordResetCode" onChange={setPasswordResetCode} aria-describedby="passwordResetCodeHelp" />
                             </div>
                             <div className="form-group">
-                                <label for="passwordResetEmail">Email address</label>
-                                <input type="email" className="form-control" id="passwordResetEmail" aria-describedby="passwordResetEmailHelp" />
+                                <label htmlFor="passwordResetEmail">Email address</label>
+                                <input type="email" className="form-control" id="passwordResetEmail" name="passwordResetEmail" onChange={setEmail} aria-describedby="passwordResetEmailHelp" />
                             </div>
                             <div className="form-group">
-                                <label for="passwordResetNewPassword">New Password</label>
-                                <input type="password" className="form-control" id="passwordResetNewPassword" />
+                                <label htmlFor="passwordResetNewPassword">New Password</label>
+                                <input type="password" className="form-control" id="passwordResetNewPassword" name="passwordResetNewPassword" onChange={setNewPassword} />
                             </div>
                             <div className="form-group">
-                                <label for="passwordResetNewPasswordConfirmation">Confirm New Password</label>
-                                <input type="password" className="form-control" id="passwordResetNewPasswordConfirmation" />
+                                <label htmlFor="passwordResetNewPasswordConfirmation">Confirm New Password</label>
+                                <input type="password" className="form-control" id="passwordResetNewPasswordConfirmation" name="passwordResetNewPasswordConfirmation" onChange={setNewPasswordConfirm} />
                             </div>
-                            <button type="button" className="btn btn-sm" onClick={this.ResetPassword}>Submit</button>
+                            <button type="button" className="btn btn-sm" onClick={resetPassword}>Submit</button>
+                            <div className="form-group text-center">
+                                <p className="submission-message" name="submissionMessage">{submissionMessage}</p>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         )
     }
-}
 
-export default ResetPassword;
+    export default ResetPassword;
