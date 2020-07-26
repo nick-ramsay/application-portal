@@ -92,6 +92,14 @@ module.exports = {
             .find({email: req.body[0]}, {email:1}).sort({})
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
+    },
+    resetPasswordRequest: function (req,res) {
+        console.log("Called reset password request controller...");
+        console.log(req.body[0]);
+        db.Accounts
+            .updateOne({email: req.body[0]}, {passwordResetToken: req.body[1]})
+            .then(dbModel => res.json(dbModel[0]))
+            .catch(err => res.status(422).json(err));
     }
     /*
     //sendTwilioSMS: function(req,res) {

@@ -13,4 +13,8 @@ router
   .route("/check-existing-account-emails")
   .post(applicationPortalController.checkExistingAccountEmails);
 
+router
+  .route("/reset-password-request")
+  .post(applicationPortalController.resetPasswordRequest);
+
 module.exports = router;

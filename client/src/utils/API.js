@@ -16,6 +16,12 @@ export default {
         console.log(email);
         console.log("Called get check emails API");
         return axios({method:"post", url: apiURL + "/api/application-portal/check-existing-account-emails", data: [email]});
+    },
+    setEmailResetCode: function (email, generatedResetToken) {
+        console.log(email);
+        console.log(generatedResetToken);
+        console.log("Called get check emails API");
+        return axios({method:"post", url: apiURL + "/api/application-portal/reset-password-request", data: [email, generatedResetToken]});
     }
     /*
     getAccountData: function (contextID) {
