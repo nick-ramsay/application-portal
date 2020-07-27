@@ -3,6 +3,7 @@ import axios from "axios";
 const apiURL = process.env.NODE_ENV === 'production' ? '' : '//localhost:3001'
 
 export default {
+    //START: Account APIs...
     sendTestEmail: function (messageInfo) {
         return axios({ method: "post", url: apiURL + "/api/application-portal/send-test-email", data: [messageInfo] });
     },
@@ -26,5 +27,11 @@ export default {
     },
     setSessionAccessToken: function (id, sessionAccessToken) {
         return axios({ method: "post", url: apiURL + "/api/application-portal/set-session-access-token", data: {id: id, sessionAccessToken: sessionAccessToken} });
+    },
+    //END: Account APIs...
+    //START: Home page APIs...
+    fetchAccountDetails: function (id) {
+        return axios({ method: "post", url: apiURL + "/api/application-portal/fetch-account-details", data: {id:id} });
     }
+    //END: Home page APIs...
 };

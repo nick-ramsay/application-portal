@@ -132,5 +132,13 @@ module.exports = {
             .updateOne({ _id: req.body.id }, { sessionAccessToken: req.body.sessionAccessToken })
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
+    },
+    fetchAccountDetails: function (req, res) {
+        console.log("Called fetch account details controller...");
+        console.log(req.body);
+        db.Accounts
+            .find({ _id: req.body.id }, { password: 0, sessionAccessToken: 0, passwordResetToken: 0, _id: 0}).sort({})
+            .then(dbModel => res.json(dbModel[0]))
+            .catch(err => res.status(422).json(err));
     }
 };

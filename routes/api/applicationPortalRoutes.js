@@ -33,4 +33,8 @@ router
   .route("/set-session-access-token")
   .post(applicationPortalController.setSessionAccessToken);
 
+router
+  .route("/fetch-account-details")
+  .post(applicationPortalController.fetchAccountDetails);
+
 module.exports = router;
