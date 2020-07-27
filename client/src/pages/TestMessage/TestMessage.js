@@ -26,10 +26,10 @@ const TestMessage = () => {
         window.history.back();
       }
 
-    const sendTestEmail = () => {
+    const sendEmail = () => {
         alert("Clicked save test email...");
         if (testPersonName !== "" && testEmailAddress !== "" && testSubject !== "" && testMessage !== "") {
-            API.sendTestEmail({ senderName: testPersonName, recipientEmail: testEmailAddress, subject: testSubject, message: testMessage }).then(res => console.log(res));
+            API.sendEmail({ senderName: testPersonName, recipientEmail: testEmailAddress, subject: testSubject, message: testMessage }).then(res => console.log(res));
         } else {
             alert("Please complete all fields on form...")
         }
@@ -58,7 +58,7 @@ const TestMessage = () => {
                             <label for="testMessage">Message</label>
                             <textarea className="form-control" id="testMessage" name="testMessage" onChange={setTestMessage} />
                         </div>
-                        <button type="button" className="btn btn-sm mr-2" name="sendTestEmail" id="sendTestEmail" onClick={sendTestEmail}>Submit</button>
+                        <button type="button" className="btn btn-sm mr-2" name="sendTestEmail" id="sendTestEmail" onClick={sendEmail}>Submit</button>
                     </form>
                 </div>
             </div>

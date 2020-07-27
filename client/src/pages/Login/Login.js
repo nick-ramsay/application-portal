@@ -20,13 +20,12 @@ const Login = () => {
     var [submissionMessage, setSubmissionMessage] = useState("");
 
     const login = () => {
-        let encryptedPassword = sha256(password);
 
         let sessionAccessToken = Math.floor((Math.random() * 999999) + 100000);
         let encryptedSessionAccessToken = sha256(sessionAccessToken.toString())
 
         if (email && password) {
-            API.login(email, encryptedPassword).then(
+            API.login(email, sha256(password)).then(
             res => {
                 if (res.data) {
                     setSubmissionMessage(submissionMessage => "");
