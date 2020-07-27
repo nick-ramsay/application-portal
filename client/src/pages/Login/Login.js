@@ -31,8 +31,10 @@ const Login = () => {
                 if (res.data) {
                     setSubmissionMessage(submissionMessage => "");
                     sessionStorage.setItem("user_token", res.data._id);
+                    document.cookie='user_token=' + res.data._id;
                     API.setSessionAccessToken(res.data._id, encryptedSessionAccessToken).then(res => {
                         sessionStorage.setItem("session_access_token", encryptedSessionAccessToken);
+                        document.cookie="session_access_token=" + encryptedSessionAccessToken;
                         window.location.href=("/")
                     })
                         

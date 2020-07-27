@@ -10,6 +10,7 @@ import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequ
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 function App() {
+
   return (
     <Router>
       <div>
