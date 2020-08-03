@@ -16,8 +16,6 @@ var client = {
   session_token: sessionStorage.getItem("session_access_token")
 }
 
-console.log(client);
-
 function App() {
 
   if (client.user_id && client.session_token) {
