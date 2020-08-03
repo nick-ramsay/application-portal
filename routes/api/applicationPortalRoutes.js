@@ -2,8 +2,8 @@ const router = require("express").Router();
 const applicationPortalController = require("../../controllers/applicationPortalController");
 
 router
-  .route("/send-test-email")
-  .post(applicationPortalController.sendTestEmail);
+  .route("/send-email")
+  .post(applicationPortalController.sendEmail);
 
 router
   .route("/create-account")

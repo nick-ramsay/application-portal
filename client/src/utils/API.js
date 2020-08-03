@@ -4,8 +4,8 @@ const apiURL = process.env.NODE_ENV === 'production' ? '' : '//localhost:3001'
 
 export default {
     //START: Account APIs...
-    sendTestEmail: function (messageInfo) {
-        return axios({ method: "post", url: apiURL + "/api/application-portal/send-test-email", data: [messageInfo] });
+    sendEmail: function (messageInfo) {
+        return axios({ method: "post", url: apiURL + "/api/application-portal/sendEmail", data: [messageInfo] });
     },
     createAccount: function (newAccountInfo) {
         return axios({ method: "post", url: apiURL + "/api/application-portal/create-account", data: newAccountInfo })

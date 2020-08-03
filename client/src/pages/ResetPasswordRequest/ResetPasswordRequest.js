@@ -37,7 +37,7 @@ const ResetPasswordRequest = () => {
                         API.setEmailResetCode(email, generatedResetToken)
                             .then(
                                 res => console.log(res),
-                                API.sendTestEmail({ senderName: "Communication Portal", recipientEmail: email, subject: "Your Password Reset Code", message: "Your password reset code is: " + generatedResetToken })
+                                API.sendEmail({ senderName: "Communication Portal", recipientEmail: email, subject: "Your Password Reset Code", message: "Your password reset code is: " + generatedResetToken })
                                     .then(res => console.log(res), window.location.href = "/reset-password")
                             );
                     } else {
