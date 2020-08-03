@@ -1,9 +1,24 @@
+const session = require('cookie-session');
 const express = require("express");
 
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+//Secure cookies...
+var expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+app.use(session({
+  name: 'session',
+  keys: ['user_token', 'session_access_token'],
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    domain: 'example.com',
+    path: 'foo/bar',
+    expires: expiryDate
+  }
+}))
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));

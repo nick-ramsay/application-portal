@@ -34,6 +34,9 @@ a:hover {
 .btn:focus, .btn-sm:focus {
   box-shadow: none;
   outline: none;
+  color: black;
+  background-color: gold;
+  border-color: gold;
 }
 
 .form-control:focus {
