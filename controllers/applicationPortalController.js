@@ -58,7 +58,7 @@ module.exports = {
             from: 'applications.nickramsay@gmail.com',
             subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName + ' via SendGrid',
             text: req.body[0].message,
-            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            html: '<strong>' + req.body[0].message + '</strong>'
         };
         sgMail.send(msg);
 
