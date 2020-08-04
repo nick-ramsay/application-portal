@@ -24,11 +24,11 @@ function App() {
         <div>
           <Switch>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
             <Route exact path="/create-account" component={CreateAccount} />
-            <Route exact path="/test-message" component={TestMessage} />
             <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
             <Route exact path="/reset-password" component={ResetPassword} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/test-message" component={TestMessage} />
             <Route component={Error} />
           </Switch>
         </div>
@@ -41,6 +41,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/create-account" component={CreateAccount} />
+            <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
+            <Route exact path="/reset-password" component={ResetPassword} />
             <Route component={NoAccess} />
           </Switch>
         </div>
