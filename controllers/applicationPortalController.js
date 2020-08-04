@@ -140,5 +140,12 @@ module.exports = {
             .find({ _id: req.body.id }, { password: 0, sessionAccessToken: 0, passwordResetToken: 0, _id: 0}).sort({})
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
+    },
+    testBackendToken: function (req,res) {
+        console.log("Called test token controller!");
+        var testToken;
+        testToken = Math.floor(Math.random() * 100000);
+        var testJSON={body: testToken};
+        res.json(testJSON);
     }
 };

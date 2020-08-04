@@ -32,6 +32,9 @@ export default {
     //START: Home page APIs...
     fetchAccountDetails: function (id) {
         return axios({ method: "post", url: apiURL + "/api/application-portal/fetch-account-details", data: {id:id} });
+    },
+    testBackendToken: function () {
+        return axios({ method: "post", url: apiURL + "/api/application-portal/test-backend-token", data: {}});
     }
     //END: Home page APIs...
 };

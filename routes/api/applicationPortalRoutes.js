@@ -37,4 +37,8 @@ router
   .route("/fetch-account-details")
   .post(applicationPortalController.fetchAccountDetails);
 
+router
+  .route("/test-backend-token")
+  .post(applicationPortalController.testBackendToken);
+
 module.exports = router;

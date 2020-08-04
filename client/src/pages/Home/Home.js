@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./style.css";
 import API from "../../utils/API";
+import { set } from 'core-js/fn/dict';
 
 const Home = () => {
 
@@ -24,6 +25,7 @@ const Home = () => {
     var [sessionAccessToken, setSessionAcccessToken] = useState("");
     var [userFirstname, setFirstname] = useState("");
     var [userLastname, setLastname] = useState("");
+    var [testToken, setTestToken] = useState("");
 
     useEffect(() => {
         setUserToken(userToken => sessionStorage.getItem("user_token"));
@@ -34,7 +36,16 @@ const Home = () => {
             setFirstname(userFirstname => res.data.firstname);
             setLastname(userLastname => res.data.lastname);
         });
+        setTestToken(testToken => "Not Yet Generated");
     }, []) //<-- Empty array makes useEffect run only once...
+
+    const testBackendToken = () => {
+        console.log("Clicked backend token button...");
+        API.testBackendToken().then(res=>{
+            console.log(res);
+            setTestToken(testToken => res.data.body);
+        });
+    }
 
     return (
         <div>
@@ -45,6 +56,10 @@ const Home = () => {
                     </div>
                     <div className="text-center">
                         <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
+                        <div className="text-center mb-2">
+                            <p>Your Backend Test Token is: {testToken}</p>
+                            <button className="btn btn-sm" onClick={testBackendToken}>Generate Backend Token</button>
+                        </div>
                         <a href="./test-message">Send Test Message</a>
                     </div>
                 </div>
