@@ -2,6 +2,7 @@ const db = require("../models");
 
 require('dotenv').config();
 
+const { sha256 } = require('js-sha256');
 const sgMail = require('@sendgrid/mail');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -95,10 +96,31 @@ module.exports = {
     },
     resetPasswordRequest: function (req, res) {
         console.log("Called reset password request controller...");
+        let resetToken = Math.floor((Math.random() * 999999) + 100000);
+
+        console.log("Controller PW Reset Token: " + resetToken);
+
+        let mailOptions = {
+            from: 'applications.nickramsay@gmail.com',
+            to: req.body[0].recipientEmail,
+            subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName,
+            text: req.body[0].message
+        };
+
         console.log(req.body[0]);
         db.Accounts
-            .updateOne({ email: req.body[0] }, { passwordResetToken: req.body[1] })
-            .then(dbModel => res.json(dbModel[0]))
+            .updateOne({ email: req.body[0] }, { passwordResetToken: resetToken })
+            .then(dbModel => {
+                res.json(dbModel[0]),
+                    smtpTransport.sendMail({
+                        from: 'applications.nickramsay@gmail.com',
+                        to: req.body[0], subject: "Your Backend Password Reset Code",
+                        text: "Your password reset code is: " + resetToken
+                    }, (error, response) => {
+                        error ? console.log(error) : console.log(response);
+                        smtpTransport.close();
+                    })
+            })
             .catch(err => res.status(422).json(err));
     },
     checkEmailAndToken: function (req, res) {
@@ -121,7 +143,7 @@ module.exports = {
         console.log("Called reset login controller...");
         console.log(req.body);
         db.Accounts
-            .find({ email: req.body.email, password: req.body.password }, {_id:1})
+            .find({ email: req.body.email, password: req.body.password }, { _id: 1 })
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
     },
@@ -137,15 +159,15 @@ module.exports = {
         console.log("Called fetch account details controller...");
         console.log(req.body);
         db.Accounts
-            .find({ _id: req.body.id }, { password: 0, sessionAccessToken: 0, passwordResetToken: 0, _id: 0}).sort({})
+            .find({ _id: req.body.id }, { password: 0, sessionAccessToken: 0, passwordResetToken: 0, _id: 0 }).sort({})
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
     },
-    testBackendToken: function (req,res) {
+    testBackendToken: function (req, res) {
         console.log("Called test token controller!");
         var testToken;
         testToken = Math.floor(Math.random() * 100000);
-        var testJSON={body: testToken};
+        var testJSON = { body: testToken };
         res.json(testJSON);
     }
 };

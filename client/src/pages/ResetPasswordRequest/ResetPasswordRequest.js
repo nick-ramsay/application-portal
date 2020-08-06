@@ -38,7 +38,7 @@ const ResetPasswordRequest = () => {
                             .then(
                                 res => console.log(res),
                                 API.sendEmail({ senderName: "Communication Portal", recipientEmail: email, subject: "Your Password Reset Code", message: "Your password reset code is: " + generatedResetToken })
-                                    .then(res => console.log(res), window.location.href = "/reset-password")
+                                    .then(res => console.log(res)/*, window.location.href = "/reset-password"*/)
                             );
                     } else {
                         setSubmissionMessage(submissionMessage => ("Sorry... no account exists for this email address"));
