@@ -2,7 +2,7 @@ const db = require("../models");
 
 require('dotenv').config();
 
-const { sha256 } = require('js-sha256');
+const sha256 = require('js-sha256').sha256;
 const sgMail = require('@sendgrid/mail');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -96,20 +96,11 @@ module.exports = {
     },
     resetPasswordRequest: function (req, res) {
         console.log("Called reset password request controller...");
-        let resetToken = Math.floor((Math.random() * 999999) + 100000);
+        let resetToken = Math.floor((Math.random() * 999999) + 100000).toString();
+        let encryptedResetToken = sha256(resetToken);
 
-        console.log("Controller PW Reset Token: " + resetToken);
-
-        let mailOptions = {
-            from: 'applications.nickramsay@gmail.com',
-            to: req.body[0].recipientEmail,
-            subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName,
-            text: req.body[0].message
-        };
-
-        console.log(req.body[0]);
         db.Accounts
-            .updateOne({ email: req.body[0] }, { passwordResetToken: resetToken })
+            .updateOne({ email: req.body[0] }, { passwordResetToken: sha256(resetToken)})
             .then(dbModel => {
                 res.json(dbModel[0]),
                     smtpTransport.sendMail({

@@ -28,11 +28,11 @@ const ResetPassword = () => {
     const resetPassword = () => {
         console.log("Clicked reset password button...")
         if (passwordResetCode !== "" && email !== "" && newPassword !=="" && newPasswordConfirm !== "" && newPassword === newPasswordConfirm) {
-            API.checkEmailAndResetToken(email, passwordResetCode).then(
+            API.checkEmailAndResetToken(email, sha256(passwordResetCode)).then(
                 res => {console.log(res);
                 if (res.data !== "") {
                     let encryptedPassword = sha256(newPassword);
-                    API.resetPassword(email, encryptedPassword).then(res => console.log(res), window.location.href="/login");
+                    API.resetPassword(email, encryptedPassword).then(res => console.log(res), window.location.href="/");
                 } else {
                     setSubmissionMessage(submissionMessage => "Hmm... reset code doesn't appear correct for email. Please make sure you've properly entered the email and reset code.")
                 }

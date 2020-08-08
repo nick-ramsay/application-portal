@@ -25,28 +25,21 @@ const ResetPasswordRequest = () => {
 
     const requestPasswordResetCode = () => {
 
-        let generatedResetToken = Math.floor((Math.random() * 999999) + 100000);
-
-        console.log(generatedResetToken);
-
         if (email !== "") {
             API.checkExistingAccountEmails(email)
                 .then(res => {
                     console.log(res.data);
                     if (res.data !== "") {
-                        API.setEmailResetCode(email, generatedResetToken)
+                        API.setEmailResetCode(email)
                             .then(
-                                res => console.log(res),
-                                API.sendEmail({ senderName: "Communication Portal", recipientEmail: email, subject: "Your Password Reset Code", message: "Your password reset code is: " + generatedResetToken })
-                                    .then(res => console.log(res)/*, window.location.href = "/reset-password"*/)
+                                res =>
+                                    console.log(res), window.location.href = "/reset-password"
                             );
                     } else {
                         setSubmissionMessage(submissionMessage => ("Sorry... no account exists for this email address"));
                     }
                 }
                 );
-
-
         } else {
             setSubmissionMessage(submissionMessage => "Please enter an email address")
         }

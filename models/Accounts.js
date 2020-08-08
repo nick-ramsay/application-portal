@@ -8,7 +8,7 @@ const AccountsSchema = new Schema({
     firstname: {type: String},
     lastname: {type: String},
     sessionAccessToken: {type: String},
-    passwordResetToken: {type: Number}
+    passwordResetToken: {type: String}
 })
 
 const Accounts = mongoose.model("Accounts", AccountsSchema);
