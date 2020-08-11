@@ -26,58 +26,57 @@ const ResetPassword = () => {
     }
 
     const resetPassword = () => {
-        console.log("Clicked reset password button...")
-        if (passwordResetCode !== "" && email !== "" && newPassword !=="" && newPasswordConfirm !== "" && newPassword === newPasswordConfirm) {
+        if (passwordResetCode !== "" && email !== "" && newPassword !== "" && newPasswordConfirm !== "" && newPassword === newPasswordConfirm) {
             API.checkEmailAndResetToken(email, sha256(passwordResetCode)).then(
-                res => {console.log(res);
-                if (res.data !== "") {
-                    let encryptedPassword = sha256(newPassword);
-                    API.resetPassword(email, encryptedPassword).then(res => console.log(res), window.location.href="/");
-                } else {
-                    setSubmissionMessage(submissionMessage => "Hmm... reset code doesn't appear correct for email. Please make sure you've properly entered the email and reset code.")
-                }
-            });
+                res => {
+                    if (res.data !== "") {
+                        let encryptedPassword = sha256(newPassword);
+                        API.resetPassword(email, encryptedPassword).then(res => window.location.href = "/");
+                    } else {
+                        setSubmissionMessage(submissionMessage => "Hmm... reset code doesn't appear correct for email. Please make sure you've properly entered the email and reset code.")
+                    }
+                });
         } else if (newPassword !== newPasswordConfirm) {
             setSubmissionMessage(submissionMessage => "Password and confirm password don't match")
         } else {
             setSubmissionMessage(submissionMessage => "Please complete all fields")
         }
     }
-                    
-        return (
-            <div>
-                <div className="container">
-                    <div className="col-md-12 mt-2">
-                        <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
-                        <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
-                        <form className="p-3">
-                            <h6 className="text-center"><strong>Reset Your Password</strong></h6>
-                            <p className="text-center">Check your e-mail for your one-time reset code. Enter your reset code, email, and new password below.</p>
-                            <div className="form-group">
-                                <label htmlFor="passwordResetCode">Reset Code</label>
-                                <input type="password" className="form-control" id="passwordResetCode" name="passwordResetCode" onChange={setPasswordResetCode} aria-describedby="passwordResetCodeHelp" />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passwordResetEmail">Email address</label>
-                                <input type="email" className="form-control" id="passwordResetEmail" name="passwordResetEmail" onChange={setEmail} aria-describedby="passwordResetEmailHelp" />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passwordResetNewPassword">New Password</label>
-                                <input type="password" className="form-control" id="passwordResetNewPassword" name="passwordResetNewPassword" onChange={setNewPassword} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passwordResetNewPasswordConfirmation">Confirm New Password</label>
-                                <input type="password" className="form-control" id="passwordResetNewPasswordConfirmation" name="passwordResetNewPasswordConfirmation" onChange={setNewPasswordConfirm} />
-                            </div>
-                            <button type="button" className="btn btn-sm" onClick={resetPassword}>Submit</button>
-                            <div className="form-group text-center">
-                                <p className="submission-message" name="submissionMessage">{submissionMessage}</p>
-                            </div>
-                        </form>
-                    </div>
+
+    return (
+        <div>
+            <div className="container">
+                <div className="col-md-12 mt-2">
+                    <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
+                    <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
+                    <form className="p-3">
+                        <h6 className="text-center"><strong>Reset Your Password</strong></h6>
+                        <p className="text-center">Check your e-mail for your one-time reset code. Enter your reset code, email, and new password below.</p>
+                        <div className="form-group">
+                            <label htmlFor="passwordResetCode">Reset Code</label>
+                            <input type="password" className="form-control" id="passwordResetCode" name="passwordResetCode" onChange={setPasswordResetCode} aria-describedby="passwordResetCodeHelp" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="passwordResetEmail">Email address</label>
+                            <input type="email" className="form-control" id="passwordResetEmail" name="passwordResetEmail" onChange={setEmail} aria-describedby="passwordResetEmailHelp" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="passwordResetNewPassword">New Password</label>
+                            <input type="password" className="form-control" id="passwordResetNewPassword" name="passwordResetNewPassword" onChange={setNewPassword} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="passwordResetNewPasswordConfirmation">Confirm New Password</label>
+                            <input type="password" className="form-control" id="passwordResetNewPasswordConfirmation" name="passwordResetNewPasswordConfirmation" onChange={setNewPasswordConfirm} />
+                        </div>
+                        <button type="button" className="btn btn-sm" onClick={resetPassword}>Submit</button>
+                        <div className="form-group text-center">
+                            <p className="submission-message" name="submissionMessage">{submissionMessage}</p>
+                        </div>
+                    </form>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+}
 
-    export default ResetPassword;
+export default ResetPassword;

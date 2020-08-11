@@ -1,4 +1,5 @@
 const db = require("../models");
+const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -100,7 +101,7 @@ module.exports = {
         let encryptedResetToken = sha256(resetToken);
 
         db.Accounts
-            .updateOne({ email: req.body[0] }, { passwordResetToken: sha256(resetToken)})
+            .updateOne({ email: req.body[0] }, { passwordResetToken: sha256(resetToken) })
             .then(dbModel => {
                 res.json(dbModel[0]),
                     smtpTransport.sendMail({

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { sha256 } from 'js-sha256';
 import "./style.css";
 import API from "../../utils/API";
 
@@ -24,11 +23,9 @@ const ResetPasswordRequest = () => {
     }
 
     const requestPasswordResetCode = () => {
-
         if (email !== "") {
             API.checkExistingAccountEmails(email)
                 .then(res => {
-                    console.log(res.data);
                     if (res.data !== "") {
                         API.setEmailResetCode(email)
                             .then(
