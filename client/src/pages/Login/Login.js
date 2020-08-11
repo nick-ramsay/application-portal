@@ -22,16 +22,17 @@ const Login = () => {
 
     const login = () => {
 
-        let cookieExpiryDate = moment().add("60", "minutes").format("ddd, DD MMM YYYY HH:mm:ss UTC");
+        let cookieExpiryDate = moment().add("60", "minutes").format();
 
         if (email && password) {
             API.login(email, sha256(password)).then(
                 res => {
                     if (res.data) {
                         setSubmissionMessage(submissionMessage => "");
-                        document.cookie = "user_token=" + res.data._id + "; expires=" + cookieExpiryDate;
+                        document.cookie = "auth_expiry=" + cookieExpiryDate + "; expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
+                        document.cookie = "user_token=" + res.data._id + "; expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
                         API.setSessionAccessToken(res.data._id).then(res => {
-                            document.cookie = "session_access_token=" + res.data.sessionAccessToken + "; expires=" + cookieExpiryDate;
+                            document.cookie = "session_access_token=" + res.data.sessionAccessToken + "; expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
                             window.location.href = "/";
                         })
 

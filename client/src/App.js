@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
@@ -10,61 +10,78 @@ import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequ
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Error from './pages/Error/Error';
 import NoAccess from './pages/NoAccess/NoAccess';
+import moment from 'moment';
 
 const getCookie = (cname) => {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
   for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-      }
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
   }
   return "";
 } //Function to get a specific cookie. Source: W3Schools
 
 var client = {
   user_id: getCookie("user_token"),
-  session_token: getCookie("session_access_token")
+  session_token: getCookie("session_access_token"),
+  auth_expiry: getCookie("auth_expiry")
 }
 
 function App() {
+  const checkTokenExpiration = () => {
+    console.log(moment().format());
+    if ((client.user_id || client.session_token) && client.auth_expiry) {
+      console.log("Cookie Exists!");
+      let authSecondsRemaining = moment(client.auth_expiry).diff(moment(), 'seconds');
+      console.log(authSecondsRemaining);
+      if (authSecondsRemaining < 300) {
+        alert("Only five minutes remain on this session before you are automatically logged out. Would you like to stay logged in?");
+      }
+    } else {
+      console.log("Cookie doesn't exist :(");
+    }
+  };
 
-  if (client.user_id && client.session_token) {
-    return (
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/create-account" component={CreateAccount} />
-            <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
-            <Route exact path="/reset-password" component={ResetPassword} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/test-message" component={TestMessage} />
-            <Route component={Error} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  } else {
-    return (
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/create-account" component={CreateAccount} />
-            <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
-            <Route exact path="/reset-password" component={ResetPassword} />
-            <Route component={NoAccess} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+setInterval(checkTokenExpiration,1000);
+
+if (client.user_id && client.session_token) {
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/create-account" component={CreateAccount} />
+          <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
+          <Route exact path="/reset-password" component={ResetPassword} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/test-message" component={TestMessage} />
+          <Route component={Error} />
+        </Switch>
+      </div>
+    </Router>
+  );
+} else {
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/create-account" component={CreateAccount} />
+          <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
+          <Route exact path="/reset-password" component={ResetPassword} />
+          <Route component={NoAccess} />
+        </Switch>
+      </div>
+    </Router>
+  );
+}
 }
 
 export default App;
