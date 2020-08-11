@@ -3,7 +3,6 @@ import { sha256 } from 'js-sha256';
 import "./style.css";
 import API from "../../utils/API";
 import GithubLogo from "../../images/GitHub_Logo.png";
-import cookieParser from 'cookie-parser';
 
 const Login = () => {
     const useInput = (initialValue) => {
@@ -22,20 +21,16 @@ const Login = () => {
 
     const login = () => {
 
-        let sessionAccessToken = Math.floor((Math.random() * 999999) + 100000);
-        let encryptedSessionAccessToken = sha256(sessionAccessToken.toString())
-
         if (email && password) {
             API.login(email, sha256(password)).then(
                 res => {
                     if (res.data) {
                         setSubmissionMessage(submissionMessage => "");
                         sessionStorage.setItem("user_token", res.data._id);
-                        document.cookie = 'user_token=' + res.data._id;
-                        API.setSessionAccessToken(res.data._id, encryptedSessionAccessToken).then(res => {
-                            sessionStorage.setItem("session_access_token", encryptedSessionAccessToken);
-                            document.cookie = "session_access_token=" + encryptedSessionAccessToken;
-                            window.location.href = ("/")
+                        API.setSessionAccessToken(res.data._id).then(res => {
+                            console.log(res);
+                            sessionStorage.setItem("session_access_token", res.data.sessionAccessToken);
+                            window.location.href = "/";
                         })
 
                     } else {

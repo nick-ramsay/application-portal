@@ -98,7 +98,6 @@ module.exports = {
     resetPasswordRequest: function (req, res) {
         console.log("Called reset password request controller...");
         let resetToken = Math.floor((Math.random() * 999999) + 100000).toString();
-        let encryptedResetToken = sha256(resetToken);
 
         db.Accounts
             .updateOne({ email: req.body[0] }, { passwordResetToken: sha256(resetToken) })
@@ -142,9 +141,17 @@ module.exports = {
     setSessionAccessToken: function (req, res) {
         console.log("Called session token set controller...");
         console.log(req.body);
+
+        let sessionAccessToken = Math.floor((Math.random() * 999999) + 100000).toString();
+
         db.Accounts
-            .updateOne({ _id: req.body.id }, { sessionAccessToken: req.body.sessionAccessToken })
-            .then(dbModel => res.json(dbModel[0]))
+            .updateOne({ _id: req.body.id }, { sessionAccessToken: sha256(sessionAccessToken) })
+            .then(dbModel => {
+                res.json({
+                    dbModel: dbModel[0],
+                    sessionAccessToken: sha256(sessionAccessToken)
+                });
+            })
             .catch(err => res.status(422).json(err));
     },
     fetchAccountDetails: function (req, res) {
