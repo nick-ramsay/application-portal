@@ -11,9 +11,25 @@ import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Error from './pages/Error/Error';
 import NoAccess from './pages/NoAccess/NoAccess';
 
+const getCookie = (cname) => {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+} //Function to get a specific cookie. Source: W3Schools
+
 var client = {
-  user_id: sessionStorage.getItem("user_token"),
-  session_token: sessionStorage.getItem("session_access_token")
+  user_id: getCookie("user_token"),
+  session_token: getCookie("session_access_token")
 }
 
 function App() {

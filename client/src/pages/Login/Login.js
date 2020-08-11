@@ -26,10 +26,10 @@ const Login = () => {
                 res => {
                     if (res.data) {
                         setSubmissionMessage(submissionMessage => "");
-                        sessionStorage.setItem("user_token", res.data._id);
+                        document.cookie = "user_token=" + res.data._id;
                         API.setSessionAccessToken(res.data._id).then(res => {
                             console.log(res);
-                            sessionStorage.setItem("session_access_token", res.data.sessionAccessToken);
+                            document.cookie = "session_access_token=" + res.data.sessionAccessToken;
                             window.location.href = "/";
                         })
 
