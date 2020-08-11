@@ -46,7 +46,6 @@ const Home = () => {
         setSessionAcccessToken(sessionAccessToken => getCookie("session_access_token"));
 
         API.fetchAccountDetails(getCookie("user_token")).then(res => {
-            console.log(res);
             setFirstname(userFirstname => res.data.firstname);
             setLastname(userLastname => res.data.lastname);
         });

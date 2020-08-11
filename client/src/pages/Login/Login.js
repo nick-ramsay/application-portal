@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { sha256 } from 'js-sha256';
+import moment from 'moment';
 import "./style.css";
 import API from "../../utils/API";
 import GithubLogo from "../../images/GitHub_Logo.png";
@@ -21,15 +22,16 @@ const Login = () => {
 
     const login = () => {
 
+        let cookieExpiryDate = moment().add("60", "minutes").format("ddd, DD MMM YYYY HH:mm:ss UTC");
+
         if (email && password) {
             API.login(email, sha256(password)).then(
                 res => {
                     if (res.data) {
                         setSubmissionMessage(submissionMessage => "");
-                        document.cookie = "user_token=" + res.data._id;
+                        document.cookie = "user_token=" + res.data._id + "; expires=" + cookieExpiryDate;
                         API.setSessionAccessToken(res.data._id).then(res => {
-                            console.log(res);
-                            document.cookie = "session_access_token=" + res.data.sessionAccessToken;
+                            document.cookie = "session_access_token=" + res.data.sessionAccessToken + "; expires=" + cookieExpiryDate;
                             window.location.href = "/";
                         })
 
