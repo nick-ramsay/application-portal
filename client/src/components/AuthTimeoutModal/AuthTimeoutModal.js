@@ -1,7 +1,43 @@
 import React from "react";
 import "./style.css";
+import moment from "moment";
 
 function AuthTimeoutModal(props) {
+
+    const getCookie = (cname) => {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    } //Function to get a specific cookie. Source: W3Schools
+
+    const resetLoginTokens = () => {
+        console.log("Clicked reset login token button!");
+
+        let cookieExpiryDate = moment().add("60", "minutes").format();
+
+        console.log(cookieExpiryDate);
+
+        var client = {
+            user_id: getCookie("user_token"),
+            session_token: getCookie("session_access_token")
+        }
+
+        console.log(client);
+
+        document.cookie = "user_token=" + client.user_id + ";expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
+        document.cookie = "session_access_token=" + client.session_token + ";expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
+        document.cookie = "auth_expiry=" + cookieExpiryDate + "; expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
+    }
 
     return (
         <div>
@@ -12,17 +48,17 @@ function AuthTimeoutModal(props) {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Still Working?</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
-                            ...
+                            Your login credentials will expire in five minutes. Would you like to continue working?
             </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-sm" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-sm">Extend Session</button>
+                            <button type="button" className="btn btn-sm" data-dismiss="modal">Dismiss</button>
+                            <button type="button" className="btn btn-sm" data-dismiss="modal" onClick={resetLoginTokens}>Extend Session</button>
                         </div>
                     </div>
                 </div>

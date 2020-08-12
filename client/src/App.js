@@ -30,13 +30,25 @@ const getCookie = (cname) => {
 } //Function to get a specific cookie. Source: W3Schools
 
 var client = {
-  user_id: getCookie("user_token"),
-  session_token: getCookie("session_access_token"),
-  auth_expiry: getCookie("auth_expiry")
+  user_id: "",
+  session_token: "",
+  auth_expiry: ""
+}
+
+const setClientTokenObject = () => {
+  client = {
+    user_id: getCookie("user_token"),
+    session_token: getCookie("session_access_token"),
+    auth_expiry: getCookie("auth_expiry")
+  }
 }
 
 function App() {
+
+  setClientTokenObject();
+
   const checkTokenExpiration = () => {
+    setClientTokenObject();
     console.log(moment().format());
     if ((client.user_id || client.session_token) && client.auth_expiry) {
       console.log("Cookie Exists!");
