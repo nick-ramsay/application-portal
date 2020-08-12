@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import Navbar from "../../components/Navbar/Navbar";
 import "./style.css";
 import API from "../../utils/API";
 
@@ -55,6 +56,7 @@ const Home = () => {
 
     return (
         <div>
+            <Navbar />
             <div className="container">
                 <div className="col-md-12 mt-2">
                     <div className="text-right">
