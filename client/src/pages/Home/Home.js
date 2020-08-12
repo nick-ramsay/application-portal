@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import Navbar from "../../components/Navbar/Navbar";
+import AuthTimeoutModal from "../../components/AuthTimeoutModal/AuthTimeoutModal";
 import "./style.css";
 import API from "../../utils/API";
 
@@ -56,7 +56,7 @@ const Home = () => {
 
     return (
         <div>
-            <Navbar />
+
             <div className="container">
                 <div className="col-md-12 mt-2">
                     <div className="text-right">
@@ -64,10 +64,16 @@ const Home = () => {
                     </div>
                     <div className="text-center">
                         <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
+                        <div>
+                            <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2" data-toggle="modal" data-target="#auth-timeout-modal">
+                                Test Auth Timeout Modal
+                </button>
+                        </div>
                         <a href="./test-message">Send Test Message</a>
                     </div>
                 </div>
             </div>
+            <AuthTimeoutModal />
         </div>
     )
 

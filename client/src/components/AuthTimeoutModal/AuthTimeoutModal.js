@@ -1,16 +1,13 @@
 import React from "react";
 import "./style.css";
 
-function Navbar(props) {
+function AuthTimeoutModal(props) {
 
     return (
         <div>
-            <nav className="navbar navbar-dark bg-dark">
-                <a className="navbar-brand" href="/">Portal</a>
-                <button type="button" className="btn btn-sm" data-toggle="modal" data-target="#auth-timeout-modal">
-                    Test Auth Timeout Modal
-                </button>
-            </nav>
+            <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2 invisible" data-toggle="modal" data-target="#auth-timeout-modal">
+                Test Auth Timeout Modal
+            </button>
             <div className="modal fade" id="auth-timeout-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
@@ -24,8 +21,8 @@ function Navbar(props) {
                             ...
             </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-sm" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-sm">Extend Session</button>
                         </div>
                     </div>
                 </div>
@@ -34,4 +31,4 @@ function Navbar(props) {
     )
 }
 
-export default Navbar;
+export default AuthTimeoutModal;

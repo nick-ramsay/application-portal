@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Error from './pages/Error/Error';
 import NoAccess from './pages/NoAccess/NoAccess';
 import moment from 'moment';
+import AuthTimeoutModal from './components/AuthTimeoutModal/AuthTimeoutModal';
 
 const getCookie = (cname) => {
   var name = cname + "=";
@@ -41,8 +42,18 @@ function App() {
       console.log("Cookie Exists!");
       let authSecondsRemaining = moment(client.auth_expiry).diff(moment(), 'seconds');
       console.log(authSecondsRemaining);
-      if (authSecondsRemaining < 300) {
-        alert("Only five minutes remain on this session before you are automatically logged out. Would you like to stay logged in?");
+      if (authSecondsRemaining === 3590) {
+        //alert("Only five minutes remain on this session before you are automatically logged out. Would you like to stay logged in?");
+        let modal = document.getElementById("auth-timeout-modal");
+        let openModalButton = document.getElementById("open-auth-timeout-modal-btn");
+
+        openModalButton.click();
+        
+        /*
+        modal.style.display = "block";
+        modal.className = "modal fade show"; 
+        */
+      
       }
     } else {
       console.log("Cookie doesn't exist :(");
