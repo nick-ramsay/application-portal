@@ -22,7 +22,7 @@ function AuthTimeoutModal(props) {
 
     const resetLoginTokens = () => {
 
-        let cookieExpiryDate = moment().add("60", "minutes").format();
+        let cookieExpiryDate = moment().add("15", "seconds").format();
 
         var client = {
             user_id: getCookie("user_token"),
