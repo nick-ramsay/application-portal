@@ -21,18 +21,13 @@ function AuthTimeoutModal(props) {
     } //Function to get a specific cookie. Source: W3Schools
 
     const resetLoginTokens = () => {
-        console.log("Clicked reset login token button!");
 
         let cookieExpiryDate = moment().add("60", "minutes").format();
-
-        console.log(cookieExpiryDate);
 
         var client = {
             user_id: getCookie("user_token"),
             session_token: getCookie("session_access_token")
         }
-
-        console.log(client);
 
         document.cookie = "user_token=" + client.user_id + ";expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");
         document.cookie = "session_access_token=" + client.session_token + ";expires=" + moment(cookieExpiryDate).format("ddd, DD MMM YYYY HH:mm:ss UTC");

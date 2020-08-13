@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useInput} from "../../SharedFunctions/SharedFunctions";
 import { sha256 } from 'js-sha256';
 import moment from 'moment';
 import "./style.css";
@@ -6,15 +7,6 @@ import API from "../../utils/API";
 import GithubLogo from "../../images/GitHub_Logo.png";
 
 const Login = () => {
-    const useInput = (initialValue) => {
-        const [value, setValue] = useState(initialValue);
-
-        function handleChange(e) {
-            setValue(e.target.value);
-        }
-
-        return [value, handleChange];
-    } //This dynamicaly sets react hooks as respective form inputs are updated...
 
     var [email, setEmail] = useInput("");
     var [password, setPassword] = useInput("");
@@ -22,7 +14,7 @@ const Login = () => {
 
     const login = () => {
 
-        let cookieExpiryDate = moment().add("60", "minutes").format();
+        let cookieExpiryDate = moment().add("15", "seconds").format();
 
         if (email && password) {
             API.login(email, sha256(password)).then(
