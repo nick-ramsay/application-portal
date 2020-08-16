@@ -1,12 +1,12 @@
 body {
-  background-color: whitesmoke;
+  background-color: antiquewhite;
   font-family: 'Didact Gothic', sans-serif;
 }
 
 form {
   background-color: white;
   border-radius: 4px;
-  box-shadow: 3px 3px 10px grey;
+  min-height: 90%;
 }
 
 a {
@@ -16,19 +16,31 @@ a {
 
 a:hover {
   text-decoration: none;
-  color: goldenrod;
+  color: indigo;
 }
 
 .btn, .btn-sm {
-  color: black;
-  background-color: inherit;
-  border: 1px black solid;
+  color: white;
+  background-color: indigo;
+  border: 1px indigo solid;
 }
 
 .btn:hover, .btn-sm:hover {
+  color: indigo;
+  background-color: inherit;
+  border: 1px indigo solid;
+}
+
+.btn-red {
   color: white;
-  background-color: black;
-  border: 1px black solid;
+  background-color: #CC0066;
+  border: 1px #CC0066 solid;
+}
+
+.btn-red:hover {
+  color: #CC0066;
+  background-color: inherit;
+  border: 1px #CC0066 solid;
 }
 
 .btn:focus, .btn-sm:focus {

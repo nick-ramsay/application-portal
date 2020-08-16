@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useInput} from "../../SharedFunctions/SharedFunctions";
+import { useInput } from "../../SharedFunctions/SharedFunctions";
 import { sha256 } from 'js-sha256';
 import moment from 'moment';
 import "./style.css";
@@ -14,7 +14,7 @@ const Login = () => {
 
     const login = () => {
 
-        let cookieExpiryDate = moment().add("15", "seconds").format();
+        let cookieExpiryDate = moment().add("60", "minutes").format();
 
         if (email && password) {
             API.login(email, sha256(password)).then(
@@ -40,9 +40,13 @@ const Login = () => {
 
     return (
         <div>
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1>Welcome to the Communication Portal</h1>
+                </div>
+            </div>
             <div className="container">
                 <div className="col-md-12 mt-2">
-                    <h3 className="text-center mb-5"><strong>Welcome to the Communication Portal</strong></h3>
                     <form className="p-3">
                         <h6 className="text-center"><strong>Login</strong></h6>
                         <div className="form-group">

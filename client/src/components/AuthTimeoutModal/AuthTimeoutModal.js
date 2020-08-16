@@ -52,8 +52,8 @@ function AuthTimeoutModal(props) {
                             Your login credentials will expire in five minutes. Would you like to continue working?
             </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-sm" data-dismiss="modal">Dismiss</button>
                             <button type="button" className="btn btn-sm" data-dismiss="modal" onClick={resetLoginTokens}>Extend Session</button>
+                            <button type="button" className="btn btn-red btn-sm" data-dismiss="modal">Dismiss</button>
                         </div>
                     </div>
                 </div>

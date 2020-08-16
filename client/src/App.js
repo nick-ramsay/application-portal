@@ -38,7 +38,7 @@ function App() {
 
       let authSecondsRemaining = moment(client.auth_expiry).diff(moment(), 'seconds');
 
-      if (authSecondsRemaining === 10) {
+      if (authSecondsRemaining === 300) {
         //alert("Only five minutes remain on this session before you are automatically logged out. Would you like to stay logged in?");
         let openModalButton = document.getElementById("open-auth-timeout-modal-btn");
 

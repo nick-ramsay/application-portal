@@ -58,20 +58,23 @@ const Home = () => {
         <div>
 
             <div className="container">
-                <div className="col-md-12 mt-2">
-                    <div className="text-right">
-                        <button className="btn btn-sm" name="logout-btn" onClick={logout}>Logout</button>
-                    </div>
-                    <div className="text-center">
-                        <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
-                        <div>
-                            <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2" data-toggle="modal" data-target="#auth-timeout-modal">
-                                Test Auth Timeout Modal
-                </button>
-                        </div>
-                        <a href="./test-message">Send Test Message</a>
-                    </div>
+                <div className="text-right">
+                    <button className="btn btn-red btn-sm mt-2" name="logout-btn" onClick={logout}>Logout</button>
                 </div>
+                <form>
+                    <div className="col-md-12 mt-2">
+
+                        <div className="text-center">
+                            <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
+                            <div>
+                                <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2" data-toggle="modal" data-target="#auth-timeout-modal">
+                                    Test Auth Timeout Modal
+                </button>
+                            </div>
+                            <a href="./test-message">Send Test Message</a>
+                        </div>
+                    </div>
+                </form>
             </div>
             <AuthTimeoutModal />
         </div>
