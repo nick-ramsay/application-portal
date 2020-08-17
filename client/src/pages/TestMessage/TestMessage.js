@@ -29,7 +29,8 @@ const TestMessage = () => {
     const sendEmail = () => {
         alert("Clicked save test email...");
         if (testPersonName !== "" && testEmailAddress !== "" && testSubject !== "" && testMessage !== "") {
-            API.sendEmail({ senderName: testPersonName, recipientEmail: testEmailAddress, subject: testSubject, message: testMessage }).then(res => console.log(res));
+            API.sendEmail({ senderName: testPersonName, recipientEmail: testEmailAddress, subject: testSubject, message: testMessage })
+            .then(res => console.log(res));
         } else {
             alert("Please complete all fields on form...")
         }

@@ -11,8 +11,6 @@ const OAuth2 = google.auth.OAuth2;
 
 const keys = require("../keys");
 
-//const gmailUserId = keys.gmail_credentials.gmailUserId;
-//const gmailPassword = keys.gmail_credentials.gmailPassword;
 const gmailClientId = keys.gmail_credentials.gmailClientId;
 const gmailClientSecret = keys.gmail_credentials.gmailClientSecret;
 const gmailRefreshToken = keys.gmail_credentials.gmailRefreshToken;
@@ -48,36 +46,43 @@ const smtpTransport = nodemailer.createTransport({
     }
 });
 
+let useGmail = true;
+let useSendgrid = true;
 
 module.exports = {
     sendEmail: function (req, res) {
         console.log("Called send test e-mail controller...");
-        console.log(req.body[0]);
         //SENDGRID LOGIC BELOW...
 
+        let messageParameters = req.body[0];
+
         let msg = {
-            to: req.body[0].recipientEmail,
+            to: messageParameters.recipientEmail,
             from: 'applications.nickramsay@gmail.com',
-            subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName + ' via SendGrid',
-            text: req.body[0].message,
-            html: '<strong>' + req.body[0].message + '</strong>'
+            subject: '"' + messageParameters.subject + '" from ' + messageParameters.senderName + ' via SendGrid',
+            text: messageParameters.message,
+            html: '<strong>' + messageParameters.message + '</strong>'
         };
-        sgMail.send(msg);
+
+        if (useSendgrid) {
+            sgMail.send(msg);
+        }
 
         //GMAIL CREDENTIALS BELOW...
 
         let mailOptions = {
             from: 'applications.nickramsay@gmail.com',
-            to: req.body[0].recipientEmail,
-            subject: '"' + req.body[0].subject + '" from ' + req.body[0].senderName,
-            text: req.body[0].message
+            to: messageParameters.recipientEmail,
+            subject: '"' + messageParameters.subject + '" from ' + messageParameters.senderName,
+            text: messageParameters.message
         };
 
-        smtpTransport.sendMail(mailOptions, (error, response) => {
-            error ? console.log(error) : console.log(response);
-            smtpTransport.close();
-        });
-
+        if (useGmail) {
+            smtpTransport.sendMail(mailOptions, (error, response) => {
+                error ? console.log(error) : console.log(response);
+                smtpTransport.close();
+            });
+        }
     },
     createAccount: function (req, res) {
         console.log("Called Create Account controller");
@@ -89,7 +94,7 @@ module.exports = {
     },
     checkExistingAccountEmails: function (req, res) {
         console.log("Called check accounts controller...");
-        console.log(req.body[0]);
+        console.log(req.body);
         db.Accounts
             .find({ email: req.body[0] }, { email: 1 }).sort({})
             .then(dbModel => res.json(dbModel[0]))
@@ -98,6 +103,7 @@ module.exports = {
     resetPasswordRequest: function (req, res) {
         console.log("Called reset password request controller...");
         let resetToken = Math.floor((Math.random() * 999999) + 100000).toString();
+        console.log(resetToken);
 
         db.Accounts
             .updateOne({ email: req.body[0] }, { passwordResetToken: sha256(resetToken) })
@@ -105,7 +111,8 @@ module.exports = {
                 res.json(dbModel[0]),
                     smtpTransport.sendMail({
                         from: 'applications.nickramsay@gmail.com',
-                        to: req.body[0], subject: "Your Backend Password Reset Code",
+                        to: req.body[0], 
+                        subject: "Your Backend Password Reset Code",
                         text: "Your password reset code is: " + resetToken
                     }, (error, response) => {
                         error ? console.log(error) : console.log(response);
