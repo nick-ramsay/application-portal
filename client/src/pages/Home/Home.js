@@ -1,19 +1,12 @@
 import React, { Component, useState, useEffect } from 'react';
+import BarLoader from "react-spinners/BarLoader";
 import AuthTimeoutModal from "../../components/AuthTimeoutModal/AuthTimeoutModal";
 import "./style.css";
 import API from "../../utils/API";
 
+const override = "display: block; margin: 0 auto; border-color: indigo;";
+
 const Home = () => {
-
-    const useInput = (initialValue) => {
-        const [value, setValue] = useState(initialValue);
-
-        function handleChange(e) {
-            setValue(e.target.value);
-        }
-
-        return [value, handleChange];
-    } //This dynamicaly sets react hooks as respective form inputs are updated...
 
     const getCookie = (cname) => {
         var name = cname + "=";
@@ -42,6 +35,7 @@ const Home = () => {
     var [sessionAccessToken, setSessionAcccessToken] = useState("");
     var [userFirstname, setFirstname] = useState("");
     var [userLastname, setLastname] = useState("");
+    var [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setUserToken(userToken => getCookie("user_token"));
@@ -50,8 +44,13 @@ const Home = () => {
         API.fetchAccountDetails(getCookie("user_token")).then(res => {
             setFirstname(userFirstname => res.data.firstname);
             setLastname(userLastname => res.data.lastname);
+            setLoading(loading => false);
         });
     }, []) //<-- Empty array makes useEffect run only once...
+
+    const testMessageBtn = () => {
+        window.location.href = "/test-message";
+    }
 
 
     return (
@@ -63,15 +62,27 @@ const Home = () => {
                 </div>
                 <form>
                     <div className="col-md-12 mt-2">
-
                         <div className="text-center">
-                            <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
+                            <div className="pt-2">
+                                <BarLoader
+                                    css={override}
+                                    size={150}
+                                    color={"#123abc"}
+                                    loading={loading}
+                                />
+                                <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
+                            </div>
+                            
                             <div>
                                 <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2" data-toggle="modal" data-target="#auth-timeout-modal">
                                     Test Auth Timeout Modal
                 </button>
                             </div>
-                            <a href="./test-message">Send Test Message</a>
+                            <div>
+                                <button type="button" className="btn btn-sm mb-2" onClick={testMessageBtn}>
+                                    Test Message
+                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
