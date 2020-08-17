@@ -58,7 +58,7 @@ const Home = () => {
 
             <div className="container">
                 <div className="text-right">
-                    <button className="btn btn-red btn-sm mt-2" name="logout-btn" onClick={logout}>Logout</button>
+
                 </div>
                 <form>
                     <div className="col-md-12 mt-2">
@@ -66,22 +66,21 @@ const Home = () => {
                             <div className="pt-2">
                                 <BarLoader
                                     css={override}
-                                    size={150}
+                                    height={10}
                                     color={"#123abc"}
                                     loading={loading}
                                 />
-                                <h3 className="mb-5"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
+                                <h3 className="mb-3"><strong>{(userFirstname && userLastname) ? "Welcome," : ""} {userFirstname} {userLastname}</strong></h3>
                             </div>
                             
                             <div>
-                                <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2" data-toggle="modal" data-target="#auth-timeout-modal">
-                                    Test Auth Timeout Modal
-                </button>
+                                <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2" data-toggle="modal" data-target="#auth-timeout-modal">Test Auth Timeout Modal</button>
                             </div>
                             <div>
-                                <button type="button" className="btn btn-sm mb-2" onClick={testMessageBtn}>
-                                    Test Message
-                </button>
+                                <button type="button" className="btn btn-sm mb-2" onClick={testMessageBtn}>Test Message</button>
+                            </div>
+                            <div>
+                                <button className="btn btn-red btn-sm mb-2" name="logout-btn" onClick={logout}>Logout</button>
                             </div>
                         </div>
                     </div>
