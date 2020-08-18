@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import "./style.css";
 import API from "../../utils/API";
 
@@ -44,6 +44,7 @@ const ResetPasswordRequest = () => {
 
     return (
         <div>
+           
             <div className="container">
                 <div className="col-md-12 mt-2">
                     <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>

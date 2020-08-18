@@ -3,6 +3,11 @@ body {
   font-family: 'Didact Gothic', sans-serif;
 }
 
+nav {
+  background-color: indigo;
+  color: white;
+}
+
 form {
   background-color: white;
   border-radius: 4px;
@@ -10,14 +15,16 @@ form {
 }
 
 a {
-  color: black;
-  text-decoration: underline;
+  color: indigo;
 }
 
 a:hover {
   text-decoration: none;
   color: indigo;
+  font-weight: bold ;
 }
+
+
 
 .btn, .btn-sm {
   color: white;

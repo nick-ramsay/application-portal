@@ -26,5 +26,11 @@ export const getCookie = (cname) => {
     return "";
 }; //Function to get a specific cookie. Source: W3Schools
 
+export const logout = () => {
+    document.cookie = "user_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "session_access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "auth_expiry=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    window.location.href = "/"
+};
 
 

@@ -1,5 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
+import { logout } from "../../SharedFunctions/SharedFunctions";
 import BarLoader from "react-spinners/BarLoader";
+import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import AuthTimeoutModal from "../../components/AuthTimeoutModal/AuthTimeoutModal";
 import "./style.css";
 import API from "../../utils/API";
@@ -24,12 +26,7 @@ const Home = () => {
         return "";
     } //Function to get a specific cookie. Source: W3Schools
 
-    const logout = () => {
-        document.cookie = "user_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-        document.cookie = "session_access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-        document.cookie = "auth_expiry=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-        window.location.href = "/"
-    }
+    
 
     var [userToken, setUserToken] = useState("");
     var [sessionAccessToken, setSessionAcccessToken] = useState("");
@@ -55,7 +52,7 @@ const Home = () => {
 
     return (
         <div>
-
+            <NavbarLoggedOut />
             <div className="container">
                 <div className="text-right">
 
@@ -78,9 +75,6 @@ const Home = () => {
                             </div>
                             <div>
                                 <button type="button" className="btn btn-sm mb-2" onClick={testMessageBtn}>Test Message</button>
-                            </div>
-                            <div>
-                                <button className="btn btn-red btn-sm mb-2" name="logout-btn" onClick={logout}>Logout</button>
                             </div>
                         </div>
                     </div>
