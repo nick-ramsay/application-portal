@@ -33,4 +33,8 @@ export const logout = () => {
     window.location.href = "/"
 };
 
+export const goBack = () => {
+    window.history.back();
+};
+
 

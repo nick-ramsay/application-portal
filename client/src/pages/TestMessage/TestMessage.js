@@ -1,5 +1,6 @@
 //import React, { Component } from "react";
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import Navbar from "../../components/Navbar/Navbar";
 import "./style.css";
 import API from "../../utils/API";
 
@@ -22,10 +23,6 @@ const TestMessage = () => {
     var [testPersonName, setTestPersonName] = useInput("");
     var [testMessage, setTestMessage] = useInput("");
 
-    const goBack = () => {
-        window.history.back();
-      }
-
     const sendEmail = () => {
         alert("Clicked save test email...");
         if (testPersonName !== "" && testEmailAddress !== "" && testSubject !== "" && testMessage !== "") {
@@ -38,10 +35,10 @@ const TestMessage = () => {
 
     return (
         <div>
+            <Navbar />
             <div className="container">
                 <div className="col-md-12 mt-2">
-                    <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
-                    <h3 className="text-center mb-5"><strong>Submit a Test Message</strong></h3>
+                    <h5 className="text-center mb-3 mt-3"><strong>Submit a Test Message</strong></h5>
                     <form className="p-3">
                         <div className="form-group">
                             <label for="testPersonName">Your Name</label>

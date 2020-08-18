@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import { sha256 } from 'js-sha256';
 import "./style.css";
 import API from "../../utils/API";
@@ -21,10 +22,6 @@ const ResetPassword = () => {
     var [newPasswordConfirm, setNewPasswordConfirm] = useInput("");
     var [submissionMessage, setSubmissionMessage] = useState("");
 
-    const goBack = () => {
-        window.history.back();
-    }
-
     const resetPassword = () => {
         if (passwordResetCode !== "" && email !== "" && newPassword !== "" && newPasswordConfirm !== "" && newPassword === newPasswordConfirm) {
             API.checkEmailAndResetToken(email, sha256(passwordResetCode)).then(
@@ -45,12 +42,11 @@ const ResetPassword = () => {
 
     return (
         <div>
+            <NavbarLoggedOut />
             <div className="container">
                 <div className="col-md-12 mt-2">
-                    <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
-                    <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
+                    <h5 className="text-center mb-3 mt-3"><strong>Reset Your Password</strong></h5>
                     <form className="p-3">
-                        <h6 className="text-center"><strong>Reset Your Password</strong></h6>
                         <p className="text-center">Check your e-mail for your one-time reset code. Enter your reset code, email, and new password below.</p>
                         <div className="form-group">
                             <label htmlFor="passwordResetCode">Reset Code</label>

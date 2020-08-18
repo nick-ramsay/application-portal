@@ -21,10 +21,8 @@ a {
 a:hover {
   text-decoration: none;
   color: indigo;
-  font-weight: bold ;
+  font-weight: bold;
 }
-
-
 
 .btn, .btn-sm {
   color: white;

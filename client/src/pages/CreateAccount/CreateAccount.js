@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import { sha256 } from 'js-sha256';
 import "./style.css";
 import API from "../../utils/API";
@@ -23,10 +24,6 @@ const CreateAccount = () => {
     var [password, setPassword] = useInput("");
     var [confirmPassword, setConfirmPassword] = useInput("");
     var [submissionMessage, setSubmissionMessage] = useState("");
-
-    const goBack = () => {
-        window.history.back();
-    }
 
     const createNewAccount = () => {
 
@@ -61,15 +58,13 @@ const CreateAccount = () => {
         }
     }
 
-
     return (
         <div>
+            <NavbarLoggedOut />
             <div className="container">
                 <div className="col-md-12 mt-2">
-                    <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
-                    <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
+                    <h5 className="text-center mb-3 mt-3"><strong>Create Account</strong></h5>
                     <form className="p-3">
-                        <h6 className="text-center"><strong>Create Account</strong></h6>
                         <div className="row mb-3">
                             <div className="col">
                                 <label htmlFor="createAccountFirstName">First Name</label>
@@ -96,7 +91,7 @@ const CreateAccount = () => {
                             <label htmlFor="createAccountPasswordConfirm">Confirm Password</label>
                             <input type="password" className="form-control" id="createAccountPasswordConfirm" name="createAccountPasswordConfirm" onChange={setConfirmPassword} />
                         </div>
-                        <button type="button" className="btn btn-sm" onClick={createNewAccount}>Submit</button>
+                        <button type="button" className="btn btn-sm" onClick={createNewAccount}>Create</button>
                         <div className="form-group text-center">
                             <p className="submission-message" name="submissionMessage">{submissionMessage}</p>
                         </div>

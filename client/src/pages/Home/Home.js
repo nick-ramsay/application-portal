@@ -1,9 +1,9 @@
 import React, { Component, useState, useEffect } from 'react';
+import "./style.css";
 import { logout } from "../../SharedFunctions/SharedFunctions";
 import BarLoader from "react-spinners/BarLoader";
-import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
+import NavbarLoggedOut from "../../components/Navbar/Navbar";
 import AuthTimeoutModal from "../../components/AuthTimeoutModal/AuthTimeoutModal";
-import "./style.css";
 import API from "../../utils/API";
 
 const override = "display: block; margin: 0 auto; border-color: indigo;";

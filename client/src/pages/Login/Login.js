@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import "./style.css";
 import { useInput } from "../../SharedFunctions/SharedFunctions";
 import { sha256 } from 'js-sha256';
 import moment from 'moment';
-import "./style.css";
 import API from "../../utils/API";
 import GithubLogo from "../../images/GitHub_Logo.png";
 
@@ -48,7 +48,6 @@ const Login = () => {
             <div className="container">
                 <div className="col-md-12 mt-2">
                     <form className="p-3">
-                        <h6 className="text-center"><strong>Login</strong></h6>
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Email address</label>
                             <input type="email" className="form-control" id="exampleInputEmail1" onChange={setEmail} aria-describedby="emailHelp" />
@@ -57,7 +56,7 @@ const Login = () => {
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input type="password" className="form-control" onChange={setPassword} id="exampleInputPassword1" />
                         </div>
-                        <button type="button" id="login-btn" name="login-btn" onClick={login} className="btn btn-sm">Submit</button>
+                        <button type="button" id="login-btn" name="login-btn" onClick={login} className="btn btn-sm">Login</button>
                         <div className="mt-3 mb-1">
                             <a href="/create-account">New to Communication Portal? Create an account here!</a>
                         </div>

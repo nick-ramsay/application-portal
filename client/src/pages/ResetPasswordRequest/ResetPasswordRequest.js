@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
+import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import "./style.css";
 import API from "../../utils/API";
 
@@ -17,10 +18,6 @@ const ResetPasswordRequest = () => {
 
     var [email, setEmail] = useInput("");
     var [submissionMessage, setSubmissionMessage] = useState("");
-
-    const goBack = () => {
-        window.history.back();
-    }
 
     const requestPasswordResetCode = () => {
         if (email !== "") {
@@ -44,13 +41,11 @@ const ResetPasswordRequest = () => {
 
     return (
         <div>
-           
+           <NavbarLoggedOut />
             <div className="container">
                 <div className="col-md-12 mt-2">
-                    <button className="btn btn-sm" onClick={goBack}><strong>&lt; Back</strong></button>
-                    <h3 className="text-center mb-5"><strong>Communication Portal</strong></h3>
+                    <h5 className="text-center mb-3 mt-3"><strong>Enter Your E-mail for a Password Reset Code</strong></h5>
                     <form className="p-3">
-                        <h6 className="text-center"><strong>Enter Your Email Below to Receive Password Reset Code</strong></h6>
                         <div className="form-group">
                             <label htmlFor="resetEmailAddress">Email address</label>
                             <input type="email" className="form-control" id="resetEmailAddress" name="resetEmailAddress" onChange={setEmail} aria-describedby="emailHelp" />
