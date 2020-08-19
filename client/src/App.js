@@ -6,6 +6,7 @@ import './App.css';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import TestMessage from './pages/TestMessage/TestMessage';
+import CreateAccountRequest from './pages/CreateAccountRequest/CreateAccountRequest';
 import CreateAccount from './pages/CreateAccount/CreateAccount';
 import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequest';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
@@ -77,6 +78,7 @@ function App() {
         <div>
           <Switch>
             <Route exact path="/" component={Login} />
+            <Route exact path="/create-account-request" component={CreateAccountRequest} />
             <Route exact path="/create-account" component={CreateAccount} />
             <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
             <Route exact path="/reset-password" component={ResetPassword} />

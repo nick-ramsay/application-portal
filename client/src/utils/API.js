@@ -10,6 +10,9 @@ export default {
     createAccount: function (newAccountInfo) {
         return axios({ method: "post", url: apiURL + "/api/application-portal/create-account", data: newAccountInfo })
     },
+    setEmailVerificationToken: function (email) {
+        return axios({ method: "post", url: apiURL + "/api/application-portal/set-email-verification-token", data: email })
+    },
     checkExistingAccountEmails: function (email) {
         return axios({ method: "post", url: apiURL + "/api/application-portal/check-existing-account-emails", data: [email] });
     },

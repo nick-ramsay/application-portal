@@ -96,9 +96,13 @@ module.exports = {
         console.log("Called check accounts controller...");
         console.log(req.body);
         db.Accounts
-            .find({ email: req.body[0] }, { email: 1 }).sort({})
+            .find({ email: req.body[0] }, { email: 1, _id: 0 }).sort({})
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
+    },
+    setEmailVerficationToken: function (req, res) {
+        console.log("Called check set e-mail verification token controller...");
+        console.log(req.body);
     },
     resetPasswordRequest: function (req, res) {
         console.log("Called reset password request controller...");

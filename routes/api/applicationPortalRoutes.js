@@ -6,6 +6,10 @@ router
   .post(applicationPortalController.sendEmail);
 
 router
+  .route("/set-email-verification-token")
+  .post(applicationPortalController.setEmailVerficationToken)
+
+router
   .route("/create-account")
   .post(applicationPortalController.createAccount);
 
