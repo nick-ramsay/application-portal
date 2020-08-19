@@ -102,7 +102,25 @@ module.exports = {
     },
     setEmailVerficationToken: function (req, res) {
         console.log("Called check set e-mail verification token controller...");
-        console.log(req.body);
+        let email = req.body.email;
+        let emailVerificationToken = Math.floor((Math.random() * 999999) + 100000).toString();
+        //console.log(emailVerificationToken);
+        //console.log(req.body);
+        db.AccountCreationRequests
+            .replaceOne({ email: email }, { email: email, emailVerificationToken: emailVerificationToken }, { upsert: true })
+            .then(dbModel => {
+                res.json(dbModel[0]),
+                    smtpTransport.sendMail({
+                        from: 'applications.nickramsay@gmail.com',
+                        to: email,
+                        subject: "Your Email Verification Code",
+                        text: "Your e-mail verification code is: " + emailVerificationToken
+                    }, (error, response) => {
+                        error ? console.log(error) : console.log(response);
+                        smtpTransport.close();
+                    })
+            })
+            .catch(err => res.status(422).json(err));
     },
     resetPasswordRequest: function (req, res) {
         console.log("Called reset password request controller...");
@@ -115,8 +133,8 @@ module.exports = {
                 res.json(dbModel[0]),
                     smtpTransport.sendMail({
                         from: 'applications.nickramsay@gmail.com',
-                        to: req.body[0], 
-                        subject: "Your Backend Password Reset Code",
+                        to: req.body[0],
+                        subject: "Your Password Reset Code",
                         text: "Your password reset code is: " + resetToken
                     }, (error, response) => {
                         error ? console.log(error) : console.log(response);
