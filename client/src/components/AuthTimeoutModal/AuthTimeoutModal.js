@@ -10,10 +10,10 @@ function AuthTimeoutModal(props) {
         var ca = decodedCookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') {
+            while (c.charAt(0) === ' ') {
                 c = c.substring(1);
             }
-            if (c.indexOf(name) == 0) {
+            if (c.indexOf(name) === 0) {
                 return c.substring(name.length, c.length);
             }
         }
@@ -39,7 +39,7 @@ function AuthTimeoutModal(props) {
             <button type="button" id="open-auth-timeout-modal-btn" className="btn btn-sm mb-2 invisible" data-toggle="modal" data-target="#auth-timeout-modal">
                 Test Auth Timeout Modal
             </button>
-            <div className="modal fade" id="auth-timeout-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="auth-timeout-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

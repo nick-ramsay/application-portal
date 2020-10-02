@@ -40,8 +40,8 @@ const Login = () => {
 
     return (
         <div>
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
+            <div className="jumbotron jumbotron-fluid">
+                <div className="container">
                     <h1>Welcome to the Communication Portal</h1>
                 </div>
             </div>

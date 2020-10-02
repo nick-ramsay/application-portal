@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import SharedFunctions, { useInput } from "../../SharedFunctions/SharedFunctions";
+import React, { useState } from 'react';
+import { useInput } from "../../SharedFunctions/SharedFunctions";
 import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import "./style.css";
 import API from "../../utils/API";
@@ -14,13 +14,11 @@ const CreateAccountRequest = () => {
             API.checkExistingAccountEmails(email)
                 .then(res => {
                     if (res.data !== "") {
-                        console.log(res.data);
                         setSubmissionMessage(submissionMessage => ("Looks like an account already exists with this e-mail. Try logging in."));
                     } else {
-                        console.log(res.data);
                         API.setEmailVerificationToken(email)
                             .then(res => {
-                                console.log(res);
+                                window.location = "./create-account"
                             })
                     }
                 }

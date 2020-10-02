@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import { sha256 } from 'js-sha256';
 import "./style.css";
@@ -38,21 +38,21 @@ const CreateAccount = () => {
         }
 
         if (firstname !== "" && lastname !== "" && email !== "" && password !== "" && confirmPassword !== "" && password === confirmPassword) {
-            console.log(currentAccountInfo);
             setSubmissionMessage(submissionMessage => "");
             API.checkExistingAccountEmails(currentAccountInfo.email)
                 .then(res => {
                     if (res.data === "") {
-                        API.createAccount(currentAccountInfo).then(res => console.log(res));
-                        window.location.href = "/login";
+                        API.createAccount(currentAccountInfo).then(res => {
+                            window.location.href = "/";
+                        });
                     } else {
                         setSubmissionMessage(submissionMessage => ("Sorry... an account already exists for this email."));
                     }
                 }
                 );
-        } else if ( password !== confirmPassword) {
+        } else if (password !== confirmPassword) {
             setSubmissionMessage(submissionMessage => ("Password and confirm password fields don't match..."));
-        } 
+        }
         else {
             setSubmissionMessage(submissionMessage => ("Not enough info entered..."));
         }

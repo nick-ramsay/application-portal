@@ -1,5 +1,4 @@
-//import React, { Component } from "react";
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from "../../components/Navbar/Navbar";
 import "./style.css";
 import API from "../../utils/API";
@@ -14,7 +13,6 @@ const TestMessage = () => {
             setValue(e.target.value);
         }
 
-        console.log(value);
         return [value, handleChange];
     } //This dynamicaly sets react hooks as respective form inputs are updated...
 
@@ -41,19 +39,19 @@ const TestMessage = () => {
                     <h5 className="text-center mb-3 mt-3"><strong>Submit a Test Message</strong></h5>
                     <form className="p-3">
                         <div className="form-group">
-                            <label for="testPersonName">Your Name</label>
+                            <label htmlFor="testPersonName">Your Name</label>
                             <input type="text" className="form-control" id="testPersonName" aria-describedby="testPersonNameHelp" name="testPersonName" onChange={setTestPersonName} />
                         </div>
                         <div className="form-group">
-                            <label for="testEmailAddress">Recipient Email Address</label>
+                            <label htmlFor="testEmailAddress">Recipient Email Address</label>
                             <input type="email" className="form-control" id="testEmailAddress" aria-describedby="testEmailAddressHelp" name="testEmailAddress" onChange={setTestEmailAddress} />
                         </div>
                         <div className="form-group">
-                            <label for="testPhone">Subject</label>
+                            <label htmlFor="testPhone">Subject</label>
                             <input type="text" className="form-control" id="testSubject" aria-describedby="testSubjectHelp" name="testSubject" onChange={setTestSubject} />
                         </div>
                         <div className="form-group">
-                            <label for="testMessage">Message</label>
+                            <label htmlFor="testMessage">Message</label>
                             <textarea className="form-control" id="testMessage" name="testMessage" onChange={setTestMessage} />
                         </div>
                         <button type="button" className="btn btn-sm mr-2" name="sendTestEmail" id="sendTestEmail" onClick={sendEmail}>Submit</button>

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavbarLoggedOut from "../../components/NavbarLoggedOut/NavbarLoggedOut";
 import "./style.css";
 import API from "../../utils/API";
@@ -26,8 +26,9 @@ const ResetPasswordRequest = () => {
                     if (res.data !== "") {
                         API.setEmailResetCode(email)
                             .then(
-                                res =>
-                                    console.log(res), window.location.href = "/reset-password"
+                                res => {
+                                    window.location.href = "/reset-password";
+                                }
                             );
                     } else {
                         setSubmissionMessage(submissionMessage => ("Sorry... no account exists for this email address"));
@@ -41,7 +42,7 @@ const ResetPasswordRequest = () => {
 
     return (
         <div>
-           <NavbarLoggedOut />
+            <NavbarLoggedOut />
             <div className="container">
                 <div className="col-md-12 mt-2">
                     <h5 className="text-center mb-3 mt-3"><strong>Enter Your E-mail for a Password Reset Code</strong></h5>
