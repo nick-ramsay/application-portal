@@ -1,5 +1,4 @@
 const db = require("../models");
-const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -160,8 +159,9 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     login: function (req, res) {
-        console.log("Called reset login controller...");
+        console.log("Called login controller...");
         console.log(req.body);
+
         db.Accounts
             .find({ email: req.body.email, password: req.body.password }, { _id: 1 })
             .then(dbModel => res.json(dbModel[0]))

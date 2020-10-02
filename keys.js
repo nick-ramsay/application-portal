@@ -4,5 +4,6 @@ exports.gmail_credentials = {
     gmailClientId: process.env.REACT_APP_GMAIL_CLIENT_ID,
     gmailClientSecret: process.env.REACT_APP_CLIENT_SECRET,
     gmailRefreshToken: process.env.REACT_APP_REFRESH_TOKEN,
-    sendGridAPIKey: process.env.SENDGRID_API_KEY
+    sendGridAPIKey: process.env.SENDGRID_API_KEY,
+    mongo_uri: process.env.mongo_uri
   };
