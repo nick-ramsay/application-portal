@@ -51,6 +51,7 @@ let useSendgrid = true;
 module.exports = {
     sendEmail: function (req, res) {
         console.log("Called send test e-mail controller...");
+        /*
         //SENDGRID LOGIC BELOW...
 
         let messageParameters = req.body[0];
@@ -66,6 +67,7 @@ module.exports = {
         if (useSendgrid) {
             sgMail.send(msg);
         }
+        */
 
         //GMAIL CREDENTIALS BELOW...
 
