@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./style.css";
 import { useInput } from "../../SharedFunctions/SharedFunctions";
 import { sha256 } from 'js-sha256';
@@ -38,6 +38,20 @@ const Login = () => {
         }
     }
 
+    const onSignIn = (googleUser) => {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+    useEffect(() => {
+        
+            
+        
+    }, []);
+
     return (
         <div>
             <div className="jumbotron jumbotron-fluid">
@@ -47,7 +61,11 @@ const Login = () => {
             </div>
             <div className="container">
                 <div className="col-md-12 mt-2">
+
                     <form className="p-3">
+                        <div className="form-group">
+                            <div className="g-signin2" data-onsuccess={onSignIn}></div>
+                        </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Email address</label>
                             <input type="email" className="form-control" id="exampleInputEmail1" onChange={setEmail} aria-describedby="emailHelp" />
