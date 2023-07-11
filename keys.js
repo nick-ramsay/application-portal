@@ -1,4 +1,6 @@
 exports.gmail_credentials = {
+    googleAuthClientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
+    googleAuthClientSecret: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_SECRET,
     gmailUserId: process.env.REACT_APP_GMAIL_USER_ID,
     gmailPassword: process.env.REACT_APP_GMAIL_PASSWORD,
     gmailClientId: process.env.REACT_APP_GMAIL_CLIENT_ID,
